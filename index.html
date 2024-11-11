@@ -3,9 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auction - Home Page</title>
+    <title>Auction website - Home page</title>
+    <link rel="stylesheet" href="/src/css/style.css">
+    <script type="module" src="src/js/main.js" defer></script>
+    <script type="module" src="src/js/api/ui/components/listings.js" defer></script>
 </head>
 <body>
-    This is an auction website
+    <header>
+        <div class="banner-img">
+            <!--Image here-->
+        </div>
+        <!--Navigation menu-->
+        <nav>
+            <ul>
+                <li><a href="index.html">Home page</a></li>
+                <li><a href="post/index.html">All listings</a></li>
+                <li><a href="profile/index.html">My profile</a></li>
+                <li><a href="post/create/index.html">Add a listing</a></li>
+                <button id="logout-button">Log out</a></button>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <!--Feed-->
+        <h2>Welcome to the homepage!</h2>
+        <p>This is the content of the page.</p>
+        <!-- Dynamic listing of the items -->
+        <div id="listings"></div>
+    </main>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Auction Website. All Rights Reserved.</p>
+        <p><a href="#privacy-policy">Privacy Policy</a> | <a href="#terms">Terms of Service</a></p>
+    </footer>
 </body>
 </html>

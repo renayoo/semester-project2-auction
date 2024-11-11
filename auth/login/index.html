@@ -1,11 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auction - Home Page</title>
-</head>
-<body>
-    
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Noroff FED2 JS2 CA</title>
+        <link rel="stylesheet" href="/src/css/styles.css">
+        <script type="module" src="/src/js/api/auth/login.js" defer></script>
+    </head>
+
+    <body>
+
+        <div class="center-wrapper">
+        <div class="login-container">
+            <h1 class="login-title">Login</h1>
+            <h2 class="description">Welcome to the Auction!</h2>
+
+            <form name="login" autocomplete="off">
+            <div class="mb-4">
+                <label for="email">Email</label>
+                <input id="email" type="email" name="email" autocomplete="email" required class="form-input"/>
+            </div>
+
+            <div class="mb-6">
+                <label for="password">Password</label>
+                <input id="password" type="password" name="password" autocomplete="current-password" required class="form-input"/>
+            </div>
+
+            <!-- Error and success message containers -->
+            <div id="errorMessages" class="message error-message"></div>
+            <div id="successMessages" class="message success-message"></div>
+
+            <a href="/auth/register/" class="register-link">New User? Register Here</a>
+
+            <button type="submit" class="login-button">
+                Login
+            </button>
+            </form>
+        </div>
+        </div>
+    </body>
 </html>
