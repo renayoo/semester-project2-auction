@@ -3,9 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auction - Home Page</title>
+    <script type="module" src="/src/js/api/auth/register.js" defer></script>
+    <script type="module" src="/src/js/api/ui/components/header.js" defer></script>
+    <script type="module" src="/src/js/api/ui/components/footer.js" defer></script>
+    <title>Register - Auction</title>
 </head>
-<body>
-    
-</body>
+<header>
+    <nav>
+        <div id="header"></div>
+    </nav>
+</header>
+    <body>
+        <h1>Register</h1>
+        <form id="registerForm">
+            <label for="name">Name (Required):</label>
+            <input type="text" id="name" name="name" required>
+            <br>
+            <label for="email">Email (Required):</label>
+            <input type="email" id="email" name="email" required>
+            <br>
+            <label for="password">Password (Required):</label>
+            <input type="password" id="password" name="password" required minlength="8">
+            <br>
+            <label for="bio">Bio (Optional):</label>
+            <textarea id="bio" name="bio" maxlength="160"></textarea>
+            <br>
+            <label for="avatarUrl">Avatar URL (Optional):</label>
+            <input type="url" id="avatarUrl" name="avatarUrl">
+            <br>
+            <label for="avatarAlt">Avatar Alt Text (Optional):</label>
+            <input type="text" id="avatarAlt" name="avatarAlt" maxlength="120">
+            <br>
+            <label for="bannerUrl">Banner URL (Optional):</label>
+            <input type="url" id="bannerUrl" name="bannerUrl">
+            <br>
+            <label for="bannerAlt">Banner Alt Text (Optional):</label>
+            <input type="text" id="bannerAlt" name="bannerAlt" maxlength="120">
+            <br>
+            <label for="venueManager">Venue Manager (Optional):</label>
+            <input type="checkbox" id="venueManager" name="venueManager">
+            <br><br>
+            <button type="submit">Register</button>
+        </form>
+        <div id="successMessages" style="color: green;"></div>
+        <div id="errorMessages" style="color: red;"></div>
+        <!-- Footer -->
+        <footer>
+            <div id="footer"></div>
+        </footer>
+    </body>
 </html>

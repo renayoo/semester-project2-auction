@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auction - All listings</title>
-    <script type="module" src="/src/js/api/ui/components/listings.js" defer></script>
+    <title>Auction - ID SPECIFIC listing</title>
+    <script type="module" src="/src/js/api/post/post.js" defer></script>
     <script type="module" src="/src/js/api/ui/components/header.js" defer></script>
     <script type="module" src="/src/js/api/ui/components/footer.js" defer></script>
 </head>
@@ -15,14 +15,15 @@
 </header>
 <body>
     <main>
-    <!-- Listings container -->
-    <div id="listings" class="listings-container">
-        <!-- Listings will be dynamically injected here -->
-    </div>
+        <!-- Listing container -->
+        <div id="post-listing-id" class="list-id-container">
+            <!-- Listing will be dynamically injected here -->
+        </div>
     </main>
-        <!-- Footer -->
-        <footer>
-            <div id="footer"></div>
-        </footer>
+
+    <!-- Footer -->
+    <footer>
+        <div id="footer"></div>
+    </footer>
 </body>
 </html>
