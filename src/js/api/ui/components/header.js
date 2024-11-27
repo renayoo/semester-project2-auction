@@ -1,7 +1,7 @@
 // Function to dynamically load the navbar
 function loadHeader() {
-    // Check if the user has an access token (indicating that they are logged in)
-    const accessToken = localStorage.getItem('accessToken');  // Check for accessToken in localStorage
+    // Check if the user has an access token for login
+    const accessToken = localStorage.getItem('accessToken');  
 
     // Start building the header HTML
     let headerHTML = `
@@ -11,7 +11,7 @@ function loadHeader() {
                 <li><a href="/post/index.html">All listings</a></li>
     `;
 
-    // If user is logged in (accessToken exists), show the "My Profile", "Create a listing", and "Log out" buttons
+    // If user is logged in (accessToken), show the "My Profile", "Create a listing", and "Log out" buttons
     if (accessToken) {
         headerHTML += `
             <li><a href="/profile/index.html">My Profile</a></li>
