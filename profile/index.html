@@ -6,14 +6,32 @@
     <title>Auction - Profile</title>
     <script type="module" src="/src/js/api/ui/components/header.js" defer></script>
     <script type="module" src="/src/js/api/ui/components/footer.js" defer></script>
+    <script type="module" src="/src/js/api/profile/profile.js" defer></script>
 </head>
-<header>
-    <nav>
-        <div id="header"></div>
-    </nav>
-</header>
 <body>
-    <!-- Footer -->
+    <header>
+        <nav>
+            <div id="header"></div>
+        </nav>
+    </header>
+    
+    <div id="profile-container">
+        <div class="profile-banner">
+            <img id="banner" src="" alt="Profile Banner" class="profile-banner-img" />
+        </div>
+        <div class="profile-avatar">
+            <img id="avatar" src="" alt="Profile Avatar" class="profile-avatar-img" />
+        </div>
+        <h2 id="name"></h2>
+        <p id="email"></p>
+        <p id="bio"></p>
+        <p><strong>Credits:</strong> <span id="credits"></span></p>
+        <p><strong>Listings:</strong> <span id="listings-count"></span></p>
+        <p><strong>Wins:</strong> <span id="wins-count"></span></p>
+        <!-- The Back to Feed button will be dynamically inserted here -->
+    </div>        
+    <button id="edit-profile-btn">Edit Profile</button>
+
     <footer>
         <div id="footer"></div>
     </footer>

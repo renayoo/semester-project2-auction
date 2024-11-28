@@ -1,8 +1,9 @@
 // Function to dynamically load the navbar
 function loadHeader() {
     // Check if the user has an access token for login
-    const accessToken = localStorage.getItem('accessToken');  
-
+    const accessToken = localStorage.getItem('accessToken');
+    const name = localStorage.getItem('name');
+    
     // Start building the header HTML
     let headerHTML = `
         <nav>
@@ -13,8 +14,9 @@ function loadHeader() {
 
     // If user is logged in (accessToken), show the "My Profile", "Create a listing", and "Log out" buttons
     if (accessToken) {
+        // Profile link, name in localStorage 
         headerHTML += `
-            <li><a href="/profile/index.html">My Profile</a></li>
+            <li><a href="/profile/index.html?name=${name}">My Profile</a></li>
             <li><a href="/post/create/index.html">Add a Listing</a></li>
             <button id="logout-button">Log Out</button>
         `;
@@ -32,19 +34,20 @@ function loadHeader() {
         </nav>
     `;
 
-    // Inject the header into the div with id="header"
+    
     const headerDiv = document.getElementById('header');
     if (headerDiv) {
         headerDiv.innerHTML = headerHTML;
     }
 
-    // If the user is logged in (accessToken exists), add the logout functionality
+    // If the user is logged in (accessToken exists), logout Btn
     if (accessToken) {
         const logoutButton = document.getElementById('logout-button');
         if (logoutButton) {
             logoutButton.addEventListener('click', function() {
                 // Log out the user (clear session data)
-                localStorage.removeItem('accessToken');  // Remove access token to log out
+                localStorage.removeItem('accessToken');
+                localStorage.removeItem('name');         
                 // Redirect to the home page
                 window.location.href = 'index.html';
             });
