@@ -2,7 +2,6 @@ import { headers } from '../headers';
 
 // Function to fetch the profile based on name from URL parameter
 async function fetchProfile() {
-    // Get the name from the URL query parameter
     const urlParams = new URLSearchParams(window.location.search);
     const name = urlParams.get('name');
 
@@ -35,6 +34,15 @@ async function fetchProfile() {
         document.getElementById('listings-count').textContent = profile._count.listings || 0;
         document.getElementById('wins-count').textContent = profile._count.wins || 0;
         
+        // Add event listener to the edit profile button to redirect to the edit page
+        const editProfileBtn = document.getElementById('edit-profile-btn');
+        if (editProfileBtn) {
+            editProfileBtn.addEventListener('click', function () {
+                // Redirect to the edit page with the 'name' query parameter
+                window.location.href = `/profile/edit.html?name=${profile.name}`;
+            });
+        }
+
     } catch (error) {
         console.error("Error fetching profile:", error);
         document.getElementById('profile-container').innerHTML = '<p>Error loading profile. Please try again later.</p>';

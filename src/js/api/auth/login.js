@@ -1,4 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Check if the user is already logged in by looking for the access token
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+        // If already logged in, redirect to home or profile
+        window.location.href = "/";  // Or change to user's profile or dashboard
+    }
+
     const form = document.getElementsByName("login")[0];
 
     if (!form) {
