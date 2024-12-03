@@ -1,6 +1,4 @@
-// postListing.js
 import { headers } from '../headers';
-
 
 document.getElementById("listingForm").addEventListener("submit", async function(event) {
     event.preventDefault();
@@ -9,7 +7,17 @@ document.getElementById("listingForm").addEventListener("submit", async function
     const title = document.getElementById("title").value;
     const description = document.getElementById("description").value || '';  // Optional field
     const tags = document.getElementById("tags").value.split(',').map(tag => tag.trim());  // Split by commas
-    const mediaUrl = document.getElementById("mediaUrl").value;
+    const mediaUrls = document.querySelectorAll('.mediaUrl'); // Get all media URL input elements
+    const media = [];
+
+    // Loop through media inputs and collect URLs
+    mediaUrls.forEach(input => {
+        const url = input.value.trim();
+        if (url) {
+            media.push({ url: url, alt: "Listing Image" });
+        }
+    });
+
     const endsAt = document.getElementById("endDate").value;
 
     // Validate required fields
@@ -17,9 +25,6 @@ document.getElementById("listingForm").addEventListener("submit", async function
         alert("Title and End Date are required!");
         return;
     }
-
-    // Construct the media array if a media URL is provided
-    const media = mediaUrl ? [{ url: mediaUrl, alt: "Listing Image" }] : [];
 
     // Prepare the data object
     const listingData = {
@@ -70,5 +75,25 @@ document.getElementById("listingForm").addEventListener("submit", async function
         // Catch any other errors
         console.error("Error creating listing:", error);
         alert("There was an issue submitting your listing.");
+    }
+});
+
+// Add event listener for adding new image inputs
+document.getElementById("addImageBtn").addEventListener("click", function() {
+    const mediaContainer = document.getElementById("mediaContainer");
+    const newInput = document.createElement("div");
+    newInput.classList.add("media-input");
+    newInput.innerHTML = `
+        <input type="url" class="mediaUrl" name="mediaUrl[]" placeholder="Image URL">
+        <button type="button" class="removeImageBtn">Remove</button>
+    `;
+    mediaContainer.appendChild(newInput);
+});
+
+// Add event listener for removing image inputs
+document.getElementById("mediaContainer").addEventListener("click", function(event) {
+    if (event.target.classList.contains("removeImageBtn")) {
+        const inputContainer = event.target.parentElement;
+        inputContainer.remove();
     }
 });

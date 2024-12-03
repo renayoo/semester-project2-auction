@@ -27,8 +27,15 @@
         <label for="tags">Tags (comma separated):</label>
         <input type="text" id="tags" name="tags"><br><br>
 
-        <label for="media">Media URL:</label>
-        <input type="url" id="mediaUrl" name="mediaUrl"><br><br>
+        <!-- Media input section -->
+        <label for="media">Media URLs:</label>
+        <div id="mediaContainer">
+            <div class="media-input">
+                <input type="url" class="mediaUrl" name="mediaUrl[]" placeholder="Image URL">
+                <button type="button" class="removeImageBtn">Remove</button>
+            </div>
+        </div>
+        <button type="button" id="addImageBtn">Add More Images</button><br><br>
 
         <label for="endDate">End Date:</label>
         <input type="datetime-local" id="endDate" name="endsAt" required><br><br>
