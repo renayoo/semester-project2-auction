@@ -7,14 +7,15 @@ document.getElementById("listingForm").addEventListener("submit", async function
     const title = document.getElementById("title").value;
     const description = document.getElementById("description").value || '';  // Optional field
     const tags = document.getElementById("tags").value.split(',').map(tag => tag.trim());  // Split by commas
-    const mediaUrls = document.querySelectorAll('.mediaUrl'); // Get all media URL input elements
+    const mediaInputs = document.querySelectorAll('.media-input'); // Get all media input elements
     const media = [];
 
-    // Loop through media inputs and collect URLs
-    mediaUrls.forEach(input => {
-        const url = input.value.trim();
+    // Loop through media inputs and collect URLs and alt texts
+    mediaInputs.forEach(input => {
+        const url = input.querySelector('.mediaUrl').value.trim();
+        const alt = input.querySelector('.mediaAlt').value.trim();
         if (url) {
-            media.push({ url: url, alt: "Listing Image" });
+            media.push({ url: url, alt: alt || "Listing Image" });
         }
     });
 
@@ -85,6 +86,7 @@ document.getElementById("addImageBtn").addEventListener("click", function() {
     newInput.classList.add("media-input");
     newInput.innerHTML = `
         <input type="url" class="mediaUrl" name="mediaUrl[]" placeholder="Image URL">
+        <input type="text" class="mediaAlt" name="mediaAlt[]" placeholder="Image Alt Text">
         <button type="button" class="removeImageBtn">Remove</button>
     `;
     mediaContainer.appendChild(newInput);
