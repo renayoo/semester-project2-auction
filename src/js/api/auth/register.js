@@ -19,11 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const email = document.getElementById("email").value.trim();
         const password = document.getElementById("password").value.trim();
         const bio = document.getElementById("bio").value.trim();
-        const avatarUrl = document.getElementById("avatarUrl").value.trim();
-        const avatarAlt = document.getElementById("avatarAlt").value.trim();
-        const bannerUrl = document.getElementById("bannerUrl").value.trim();
-        const bannerAlt = document.getElementById("bannerAlt").value.trim();
-        const venueManager = document.getElementById("venueManager").checked;
 
         // Validate required fields
         if (!name || !email || !password) {
@@ -36,10 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 name,
                 email,
                 password,
-                bio: bio || undefined,
-                avatar: avatarUrl ? { url: avatarUrl, alt: avatarAlt } : undefined,
-                banner: bannerUrl ? { url: bannerUrl, alt: bannerAlt } : undefined,
-                venueManager
+                bio: bio || undefined
             };
 
             // Send data to the registration API
@@ -59,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Redirect after a short delay
             setTimeout(() => {
-                window.location.href = "/index.html";
+                window.location.href = "/auth/login/index.html";
             }, 2000);
 
         } catch (error) {
