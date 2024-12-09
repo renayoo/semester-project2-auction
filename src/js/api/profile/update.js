@@ -1,9 +1,9 @@
-import { headers } from '../headers'; 
+import { headers } from '../headers';
 
-// Function to fetch the profile 
+// Function to fetch the profile
 async function fetchProfile() {
     const urlParams = new URLSearchParams(window.location.search);
-    const name = urlParams.get('name'); 
+    const name = urlParams.get('name');
 
     if (!name) {
         console.error("No name found in the URL");
@@ -11,10 +11,10 @@ async function fetchProfile() {
     }
 
     try {
-        // Make an API request name
+        // Make an API request
         const response = await fetch(`https://v2.api.noroff.dev/auction/profiles/${name}`, {
             method: "GET",
-            headers: headers(), 
+            headers: headers(),
         });
 
         if (!response.ok) {
@@ -26,12 +26,13 @@ async function fetchProfile() {
 
         // Log the profile data to confirm it's being fetched correctly
         console.log("Fetched profile data:", profile);
-        
-        
+
         // Prepopulate the form with the current profile data
         document.getElementById('bio').value = profile.bio || '';
         document.getElementById('avatar-url').value = profile.avatar?.url || '';
+        document.getElementById('avatar-alt').value = profile.avatar?.alt || '';
         document.getElementById('banner-url').value = profile.banner?.url || '';
+        document.getElementById('banner-alt').value = profile.banner?.alt || '';
     } catch (error) {
         console.error("Error fetching profile:", error);
         document.getElementById('edit-profile-container').innerHTML = '<p>Error loading profile. Please try again later.</p>';
@@ -41,8 +42,8 @@ async function fetchProfile() {
 // Function to update the profile
 async function updateProfile(name, data) {
     // Retrieve the access token from localStorage
-    const accessToken = localStorage.getItem('accessToken');  // Get access token from localStorage
-    console.log("Access Token:", accessToken);  // Log the access token for debugging
+    const accessToken = localStorage.getItem('accessToken');
+    console.log("Access Token:", accessToken);
     console.log("Updating profile with data:", data);
 
     if (!accessToken) {
@@ -56,7 +57,7 @@ async function updateProfile(name, data) {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`, 
+                'Authorization': `Bearer ${accessToken}`,
             },
             body: JSON.stringify(data),
         });
@@ -73,13 +74,12 @@ async function updateProfile(name, data) {
         console.log('Profile updated:', result);
         alert('Profile updated successfully!');
         // Redirect back to profile page after updating
-        window.location.href = `/profile/index.html?name=${name}`; 
+        window.location.href = `/profile/index.html?name=${name}`;
     } catch (error) {
         console.error('Error updating profile:', error);
         alert('Error updating profile. Please try again later.');
     }
 }
-
 
 // Wait for the DOM to load, then fetch the profile
 document.addEventListener('DOMContentLoaded', fetchProfile);
@@ -91,24 +91,32 @@ document.getElementById('edit-profile-form').addEventListener('submit', function
     // Get values from the form fields
     const bio = document.getElementById('bio').value;
     const avatarUrl = document.getElementById('avatar-url').value;
+    const avatarAlt = document.getElementById('avatar-alt').value;
     const bannerUrl = document.getElementById('banner-url').value;
+    const bannerAlt = document.getElementById('banner-alt').value;
 
     // Construct the data object to send to the API
     const profileData = {
         bio: bio || undefined,
         avatar: {
-            url: avatarUrl || undefined
+            url: avatarUrl || undefined,
+            alt: avatarAlt || undefined
         },
         banner: {
-            url: bannerUrl || undefined
+            url: bannerUrl || undefined,
+            alt: bannerAlt || undefined
         }
     };
 
-    // Log the profile data to be sent to the API
-    console.log("Profile data being sent to API:", profileData);
-
-    // Remove undefined properties from the data object
+    // Remove undefined properties from nested objects
     Object.keys(profileData).forEach(key => {
+        if (profileData[key] && typeof profileData[key] === 'object') {
+            Object.keys(profileData[key]).forEach(subKey => {
+                if (profileData[key][subKey] === undefined) {
+                    delete profileData[key][subKey];
+                }
+            });
+        }
         if (profileData[key] === undefined) {
             delete profileData[key];
         }
@@ -125,4 +133,3 @@ document.getElementById('edit-profile-form').addEventListener('submit', function
     // Update the profile via the API
     updateProfile(name, profileData);
 });
-
