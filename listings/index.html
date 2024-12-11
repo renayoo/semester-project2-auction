@@ -8,20 +8,29 @@
     <script type="module" src="/src/js/api/ui/components/header.js" defer></script>
     <script type="module" src="/src/js/api/ui/components/footer.js" defer></script>
 </head>
-    <header>
-        <nav>
-            <div id="header"></div>
-        </nav>
-    </header>
-
-    <main>
-        <!-- Listing container where specific listing data will be injected -->
-        <div id="post-listing-id" class="list-id-container">
-            <!-- Listing details will be dynamically injected here -->
+<header>
+    <nav>
+        <div id="header"></div>
+    </nav>
+</header>
+<main>
+    <!-- Listing container where specific listing data will be injected -->
+    <div id="post-listing-id" class="list-id-container">
+        <div id="listing-title"></div>
+        <div id="listing-description"></div>
+        <div id="listing-tags"></div>
+        <div id="listing-media"></div>
+        <div id="listing-seller"></div>
+        <div id="listing-countdown"></div>
+        <div id="bid-list"></div>
+        <div id="current-winning-bid"></div>
+        <div id="place-bid">
+            <input type="number" id="bid-amount" placeholder="Enter your bid amount">
+            <button id="submit-bid">Place Bid</button>
         </div>
-    </main>
-
-    <footer>
-        <div id="footer"></div>
-    </footer>
+    </div>
+</main>
+<footer>
+    <div id="footer"></div>
+</footer>
 </html>
