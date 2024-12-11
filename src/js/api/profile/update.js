@@ -24,9 +24,6 @@ async function fetchProfile() {
         const data = await response.json();
         const profile = data.data;
 
-        // Log the profile data to confirm it's being fetched correctly
-        console.log("Fetched profile data:", profile);
-
         // Prepopulate the form with the current profile data
         document.getElementById('bio').value = profile.bio || '';
         document.getElementById('avatar-url').value = profile.avatar?.url || '';
@@ -41,10 +38,7 @@ async function fetchProfile() {
 
 // Function to update the profile
 async function updateProfile(name, data) {
-    // Retrieve the access token from localStorage
     const accessToken = localStorage.getItem('accessToken');
-    console.log("Access Token:", accessToken);
-    console.log("Updating profile with data:", data);
 
     if (!accessToken) {
         console.error("No access token found. You must be logged in.");
@@ -55,25 +49,18 @@ async function updateProfile(name, data) {
     try {
         const response = await fetch(`https://v2.api.noroff.dev/auction/profiles/${name}`, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`,
-            },
+            headers: headers(data), // Use the shared headers function
             body: JSON.stringify(data),
         });
 
         if (!response.ok) {
-            // Log the full response body for debugging
             const errorData = await response.json();
-            console.error('Error response from server:', errorData);
             alert(`Error: ${errorData.errors[0]?.message || 'Profile update failed'}`);
             throw new Error('Profile update failed');
         }
 
         const result = await response.json();
-        console.log('Profile updated:', result);
         alert('Profile updated successfully!');
-        // Redirect back to profile page after updating
         window.location.href = `/profile/index.html?name=${name}`;
     } catch (error) {
         console.error('Error updating profile:', error);
