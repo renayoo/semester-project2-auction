@@ -9,7 +9,6 @@ function loadHeader() {
         <nav>
             <ul>
                 <li><a href="/index.html">Home page</a></li>
-                <li><a href="/post/index.html">All listings</a></li>
     `;
 
     // If user is logged in (accessToken), show the "My Profile", "Create a listing", and "Log out" buttons
