@@ -1,15 +1,12 @@
 import { API_BASE } from "../constants"; 
+import { headers } from '../headers.js';
 
 // Function to fetch listing data by ID
 async function fetchListingById(listingId) {
     try {
         const response = await fetch(`${API_BASE}/auction/listings/${listingId}?_seller=true&_bids=true`, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                // Add additional headers like authentication if needed
-                // 'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-            }
+            headers: headers(), // Use the headers function for authentication
         });
 
         if (!response.ok) {
@@ -17,10 +14,36 @@ async function fetchListingById(listingId) {
         }
 
         const responseData = await response.json();
-        return responseData.data; 
+        return responseData.data;
     } catch (error) {
         console.error('Error fetching listing:', error);
         return null; 
+    }
+}
+
+// Function to delete a listing
+async function deleteListing(listingId) {
+    const confirmation = confirm('Are you sure you want to delete this listing?');
+    if (!confirmation) return;
+
+    try {
+        const response = await fetch(`${API_BASE}/auction/listings/${listingId}`, {
+            method: 'DELETE',
+            headers: headers(), // Use headers function for authentication
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error('Error deleting listing:', errorData);
+            alert('Failed to delete listing: ' + errorData.message);
+            return;
+        }
+
+        alert('Listing deleted successfully!');
+        window.location.href = '/'; // Redirect to the homepage after deletion
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to delete listing: ' + error.message);
     }
 }
 
@@ -44,6 +67,7 @@ async function showListing() {
 
     // Access the seller's name (assuming the seller is an object with a name property)
     const sellerName = listing.seller && listing.seller.name ? listing.seller.name : 'Unknown Seller';
+    const loggedInUserName = localStorage.getItem('name'); // Assuming this is saved in localStorage
 
     // Populate listing details
     listingDetailsContainer.innerHTML = `
@@ -63,7 +87,30 @@ async function showListing() {
             <input type="number" id="bid-amount" placeholder="Enter your bid amount">
             <button id="submit-bid">Place Bid</button>
         </div>
+        <div id="edit-delete-buttons">
+            <!-- Buttons for edit and delete will be injected here -->
+        </div>
     `;
+
+    // Show edit and delete buttons if the logged-in user is the seller
+    if (loggedInUserName === sellerName) {
+        const buttonsContainer = document.getElementById('edit-delete-buttons');
+        
+        const editButton = document.createElement('button');
+        editButton.textContent = 'Edit Listing';
+        editButton.id = 'editListing';
+        editButton.addEventListener('click', () => {
+            window.location.href = `/post/edit/edit.html?id=${listingId}`;
+        });
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete Listing';
+        deleteButton.id = 'deleteListing';
+        deleteButton.addEventListener('click', () => deleteListing(listingId));
+
+        buttonsContainer.appendChild(editButton);
+        buttonsContainer.appendChild(deleteButton);
+    }
 
     // Event listener for seller link
     document.getElementById('seller-name').addEventListener('click', () => {
