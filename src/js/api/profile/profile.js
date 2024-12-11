@@ -94,10 +94,21 @@ async function fetchListings(name) {
                 <p class="listing-description">${listing.description || 'No description available'}</p>
                 <p class="listing-ends">Ends at: ${new Date(listing.endsAt).toLocaleString()}</p>
                 <p class="listing-bids">Bids: ${listing._count.bids}</p>
+                <button class="view-listing-btn" data-listing-id="${listing.id}">View Listing</button>  <!-- View Listing Button -->
             `;
 
             listingsContainer.appendChild(card);
         });
+
+        // Add event listeners for the "View Listing" buttons
+        const viewListingButtons = document.querySelectorAll('.view-listing-btn');
+        viewListingButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const listingId = button.getAttribute('data-listing-id');
+                window.location.href = `/listings/index.html?id=${listingId}`;  // Redirect to the listing page
+            });
+        });
+
     } catch (error) {
         console.error("Error fetching listings:", error);
         document.getElementById('listings-container').innerHTML = '<p>Error loading listings. Please try again later.</p>';

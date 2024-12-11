@@ -51,21 +51,27 @@ async function loadListings() {
                             <p class="listing-tags">Tags: ${item.tags.length > 0 ? item.tags.join(', ') : 'No tags'}</p>
                             <p class="listing-end-date">Ends At: ${new Date(item.endsAt).toLocaleString()}</p>
                             <p class="listing-bids">Bids: ${item._count.bids}</p>
-                            <a href="#" class="view-listing-button">View Listing</a>
+                            <button class="view-listing-button" data-listing-id="${item.id}">View Listing</button> <!-- View Listing Button -->
                         </div>
                     </div>
                 `;
-            }).join('');
+            }).join(''); 
 
             listingsContainer.innerHTML = listingsHtml;
 
             // Generate pagination controls based on total pages and current page
             generatePaginationControls(meta);
             
-            // Add event listeners for listing links
-            const listingLinks = document.querySelectorAll('.listing-item');
-            listingLinks.forEach(link => {
-                link.addEventListener('click', handleListingClick);
+            // Add event listeners for listing buttons (View Listing)
+            const viewListingButtons = document.querySelectorAll('.view-listing-button');
+            viewListingButtons.forEach(button => {
+                button.addEventListener('click', handleListingClick);
+            });
+
+            // Add event listeners for images
+            const listingImages = document.querySelectorAll('.listing-image');
+            listingImages.forEach(image => {
+                image.addEventListener('click', handleListingClickFromImage);
             });
         } else {
             listingsContainer.innerHTML = '<p>No listings available.</p>';
@@ -76,10 +82,19 @@ async function loadListings() {
     }
 }
 
-// Function to handle the listing click navigation
+// Function to handle the listing click navigation from the button
 function handleListingClick(event) {
-    event.preventDefault();  // Prevent default link behavior
+    event.preventDefault();  // Prevent default button behavior
     const listingId = event.currentTarget.getAttribute('data-listing-id');
+    if (listingId) {
+        navigateToListing(listingId);
+    }
+}
+
+// Function to handle the listing click navigation from the image
+function handleListingClickFromImage(event) {
+    event.preventDefault();  // Prevent default link behavior
+    const listingId = event.currentTarget.closest('.listing-item').getAttribute('data-listing-id');
     if (listingId) {
         navigateToListing(listingId);
     }
