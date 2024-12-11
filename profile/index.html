@@ -16,21 +16,22 @@
     </header>
     
     <div id="profile-container">
-        <div class="profile-banner">
-            <img id="banner" src="" alt="Profile Banner" class="profile-banner-img" />
+        <div id="profile-header">
+            <img id="banner" alt="Profile banner" class="profile-banner">
+            <img id="avatar" alt="Profile avatar" class="profile-avatar">
+            <h1 id="name"></h1>
+            <p id="email"></p>
+            <p id="bio"></p>
+            <p>Credits: <span id="credits"></span></p>
+            <p>Listings: <span id="listings-count"></span></p>
+            <p>Wins: <span id="wins-count"></span></p>
+            <button id="edit-profile-btn">Edit Profile</button>
         </div>
-        <div class="profile-avatar">
-            <img id="avatar" src="" alt="Profile Avatar" class="profile-avatar-img" />
+        <div id="listings-container">
+            <!-- Listings will be dynamically inserted here -->
         </div>
-        <h2 id="name"></h2>
-        <p id="email"></p>
-        <p id="bio"></p>
-        <p><strong>Credits:</strong> <span id="credits"></span></p>
-        <p><strong>Listings:</strong> <span id="listings-count"></span></p>
-        <p><strong>Wins:</strong> <span id="wins-count"></span></p>
-        <!-- The Back to Feed button will be dynamically inserted here -->
-    </div>        
-        <button id="edit-profile-btn">Edit Profile</button>
+    </div>
+        <button id="back-to-feed-btn">Back to Feed</button>
     </a>    
     <footer>
         <div id="footer"></div>
