@@ -34,13 +34,24 @@ async function fetchProfile() {
         document.getElementById('listings-count').textContent = profile._count.listings || 0;
         document.getElementById('wins-count').textContent = profile._count.wins || 0;
 
-        // Add event listener to the edit profile button to redirect to the edit page
-        const editProfileBtn = document.getElementById('edit-profile-btn');
-        if (editProfileBtn) {
-            editProfileBtn.addEventListener('click', function () {
-                // Redirect to the edit page with the 'name' query parameter
-                window.location.href = `/profile/edit.html?name=${profile.name}`;
-            });
+        // Check if the logged-in user is the owner of the profile
+        const loggedInUserName = localStorage.getItem('name'); // Get the logged-in user's name from localStorage
+        if (loggedInUserName && loggedInUserName === profile.name) {
+            // Show the "Edit Profile" button if the logged-in user matches the profile owner
+            const editProfileBtn = document.getElementById('edit-profile-btn');
+            if (editProfileBtn) {
+                editProfileBtn.style.display = 'block';  // Show the button
+                editProfileBtn.addEventListener('click', function () {
+                    // Redirect to the edit page with the 'name' query parameter
+                    window.location.href = `/profile/edit.html?name=${profile.name}`;
+                });
+            }
+        } else {
+            // Hide the "Edit Profile" button if the logged-in user does not match
+            const editProfileBtn = document.getElementById('edit-profile-btn');
+            if (editProfileBtn) {
+                editProfileBtn.style.display = 'none';  // Hide the button
+            }
         }
 
         // Fetch and display the user's listings
@@ -50,7 +61,7 @@ async function fetchProfile() {
         const backToFeedBtn = document.getElementById('back-to-feed-btn');
         if (backToFeedBtn) {
             backToFeedBtn.addEventListener('click', function () {
-                window.location.href = '/feed.html';
+                window.location.href = '/index.html';
             });
         }
 
