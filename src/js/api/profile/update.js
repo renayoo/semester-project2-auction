@@ -49,7 +49,7 @@ async function updateProfile(name, data) {
     try {
         const response = await fetch(`https://v2.api.noroff.dev/auction/profiles/${name}`, {
             method: 'PUT',
-            headers: headers(data), // Use the shared headers function
+            headers: headers(data), 
             body: JSON.stringify(data),
         });
 
