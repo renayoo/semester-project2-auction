@@ -84,8 +84,7 @@ async function showListing() {
         </div>
         <h3>Place a Bid:</h3>
         <div id="place-bid">
-            <input type="number" id="bid-amount" placeholder="Enter your bid amount">
-            <button id="submit-bid">Place Bid</button>
+            <!-- Default content will be set depending on login status -->
         </div>
         <div id="edit-delete-buttons">
             <!-- Buttons for edit and delete will be injected here -->
@@ -116,28 +115,63 @@ async function showListing() {
     document.getElementById('seller-name').addEventListener('click', () => {
         window.location.href = `/profile/?name=${listing.seller.name}`; // Redirect to seller's profile
     });
-    
 
-    // Handle place bid button click
-    document.getElementById('submit-bid').addEventListener('click', async () => {
-        const bidAmount = document.getElementById('bid-amount').value.trim();
-        if (bidAmount && !isNaN(bidAmount)) {
-            // You can add your bid placement logic here
-            alert(`Placing a bid of $${bidAmount}`);
-            // After placing the bid, you may refresh the page or update the listing info
-        } else {
-            alert('Please enter a valid bid amount.');
-        }
-    });
+    // Check if user is logged in (has an access token)
+    const accessToken = localStorage.getItem('accessToken');  // Get the access token from localStorage
 
-        // Event listener back to feed
+    // Display bid section or login message based on access token presence
+    const placeBidSection = document.getElementById('place-bid');
+    if (accessToken) {
+        // User is logged in, show the bid input and button
+        placeBidSection.innerHTML = `
+            <input type="number" id="bid-amount" placeholder="Enter your bid amount">
+            <button id="submit-bid">Place Bid</button>
+        `;
+
+        // Handle place bid button click
+        document.getElementById('submit-bid').addEventListener('click', async () => {
+            const bidAmount = document.getElementById('bid-amount').value.trim();
+            if (bidAmount && !isNaN(bidAmount)) {
+                // Prepare the bid data
+                const bidData = { amount: parseFloat(bidAmount) };
+
+                try {
+                    const response = await fetch(`${API_BASE}/auction/listings/${listingId}/bids`, {
+                        method: 'POST',
+                        headers: headers(true), // Send the access token with the request
+                        body: JSON.stringify(bidData),
+                    });
+
+                    if (!response.ok) {
+                        const error = await response.json();
+                        console.error('Error placing bid:', error);
+                        alert('Failed to place bid: ' + error.message);
+                    } else {
+                        const bidResult = await response.json();
+                        alert(`Bid placed successfully! Bid ID: ${bidResult.data.id}`);
+                        // Optionally, refresh the page or update the listing info after placing the bid
+                        location.reload(); // Reload to show updated bid count, etc.
+                    }
+                } catch (error) {
+                    console.error('Error placing bid:', error);
+                    alert('There was an issue placing your bid.');
+                }
+            } else {
+                alert('Please enter a valid bid amount.');
+            }
+        });
+    } else {
+        // User is not logged in, show the login/register message instead
+        placeBidSection.innerHTML = '<p>Register or login to bid on listing</p>';
+    }
+
+    // Event listener back to feed
     document.getElementById("backToFeedBtn").addEventListener("click", function() {
         window.location.href = "/";
-    }); 
+    });
 }
 
 // Initialize listing details on page load
 document.addEventListener("DOMContentLoaded", function () {
     showListing(); 
 });
-

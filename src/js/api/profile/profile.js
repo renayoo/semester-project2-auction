@@ -5,6 +5,14 @@ async function fetchProfile() {
     const urlParams = new URLSearchParams(window.location.search);
     const name = urlParams.get('name');
 
+    const loggedInUserName = localStorage.getItem('name'); // Get the logged-in user's name from localStorage
+    
+    if (!loggedInUserName) {
+        // If no user is logged in, show the message and return
+        document.getElementById('profile-container').innerHTML = '<p>Register or login to see user profile.</p>';
+        return;
+    }
+
     if (!name) {
         console.error("No name found in the URL");
         return;
@@ -35,8 +43,7 @@ async function fetchProfile() {
         document.getElementById('wins-count').textContent = profile._count.wins || 0;
 
         // Check if the logged-in user is the owner of the profile
-        const loggedInUserName = localStorage.getItem('name'); // Get the logged-in user's name from localStorage
-        if (loggedInUserName && loggedInUserName === profile.name) {
+        if (loggedInUserName === profile.name) {
             // Show the "Edit Profile" button if the logged-in user matches the profile owner
             const editProfileBtn = document.getElementById('edit-profile-btn');
             if (editProfileBtn) {
@@ -99,7 +106,7 @@ async function fetchListings(name) {
             const card = document.createElement('div');
             card.classList.add('listing-card');
 
-            card.innerHTML = `
+            card.innerHTML = ` 
                 <img src="${listing.media[0]?.url || ''}" alt="${listing.media[0]?.alt || 'Listing image'}" class="listing-image">
                 <h3 class="listing-title">${listing.title}</h3>
                 <p class="listing-description">${listing.description || 'No description available'}</p>
