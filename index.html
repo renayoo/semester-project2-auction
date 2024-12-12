@@ -9,27 +9,34 @@
     <script type="module" src="src/js/api/ui/components/header.js" defer></script>
     <script type="module" src="src/js/api/ui/components/footer.js" defer></script>
 </head>
-    <body>
-        <header>
-            <nav>
-                <div id="header"></div>
-            </nav>
-            <!--Navigation menu-->
-        </header>
-        <main>
-            <!--Feed-->
-            <div class="banner-img">
-                <img src="https://cdn.pixabay.com/photo/2018/02/21/11/02/adult-3170055_1280.jpg" alt="Auction Banner" style="width: 100%; height: auto;">
-                <h2>Welcome to Auction Option!</h2>
-            </div>
-            <p>Browse listings:</p>
-            <!-- Dynamic listing of the items -->
-            <div id="listings"></div>
-            <div id="pagination" class="pagination"></div>
-        </main>
-        <!-- Footer -->
-        <footer>
-            <div id="footer"></div>
-        </footer>
-    </body>
+<body>
+    <header>
+        <nav>
+            <div id="header"></div>
+        </nav>
+    </header>
+    <main>
+        <div class="banner-img">
+            <img src="https://cdn.pixabay.com/photo/2018/02/21/11/02/adult-3170055_1280.jpg" alt="Auction Banner" style="width: 100%; height: auto;">
+            <h2>Welcome to Auction Option!</h2>
+        </div>
+        <p>Browse listings:</p>
+        <!-- Search and sorting controls -->
+        <div class="controls">
+            <input type="text" id="search" placeholder="Search listings..." />
+            <select id="sort">
+                <option value="created_desc" selected>Newest</option>
+                <option value="created_asc">Oldest</option>
+                <option value="endsAt_asc">Ending Soon</option>
+            </select>            
+        </div>
+        <!-- Dynamic listing of the items -->
+        <div id="listings"></div>
+        <div id="pagination" class="pagination"></div>
+    </main>
+    <footer>
+        <div id="footer"></div>
+    </footer>
+    <script type="module" src="src/js/listings.js"></script>
+</body>
 </html>
