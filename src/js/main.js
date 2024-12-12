@@ -102,7 +102,7 @@ function handleListingClickFromImage(event) {
 
 // Function to handle the navigation when clicking on a listing
 function navigateToListing(listingId) {
-    window.location.href = `/listings/index.html?id=${listingId}`;
+    window.location.href = `/listing/index.html?id=${listingId}`;
 }
 
 // Function to generate pagination controls

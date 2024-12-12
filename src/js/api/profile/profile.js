@@ -116,7 +116,7 @@ async function fetchListings(name) {
         viewListingButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const listingId = button.getAttribute('data-listing-id');
-                window.location.href = `/listings/index.html?id=${listingId}`;  // Redirect to the listing page
+                window.location.href = `/listing/index.html?id=${listingId}`;  // Redirect to the listing page
             });
         });
 
