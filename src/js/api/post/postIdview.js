@@ -148,7 +148,7 @@ async function showListing() {
                         alert('Failed to place bid: ' + error.message);
                     } else {
                         const bidResult = await response.json();
-                        alert(`Bid placed successfully! Bid ID: ${bidResult.data.id}`);
+                        alert(`Bid placed successfully!`);
                         // Optionally, refresh the page or update the listing info after placing the bid
                         location.reload(); // Reload to show updated bid count, etc.
                     }
