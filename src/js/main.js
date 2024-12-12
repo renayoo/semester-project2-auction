@@ -13,9 +13,9 @@ async function loadListings() {
     const searchTerm = getSearchTermFromURL() || searchInput.value.trim();
 
     // Construct API endpoint with search parameters and pagination
-    let endpoint = `${API_BASE}/auction/listings?page=${currentPage}&limit=9&sort=created&order=desc`; // Default to newest listings
+    let endpoint = `${API_BASE}/auction/listings?page=${currentPage}&limit=9&sort=created&order=desc&_bids=true`; // Default to newest listings, including bids
     if (searchTerm) {
-        endpoint = `${API_BASE}/auction/listings/search?q=${encodeURIComponent(searchTerm)}&page=${currentPage}&limit=9&sort=created&order=desc`; // Include search term, limit, and default sort order
+        endpoint = `${API_BASE}/auction/listings/search?q=${encodeURIComponent(searchTerm)}&page=${currentPage}&limit=9&sort=created&order=desc&_bids=true`; // Include search term and bids
     }
 
     try {
@@ -40,6 +40,11 @@ async function loadListings() {
                 const mediaUrl = item.media && item.media[0] ? item.media[0].url : 'default-image.jpg';
                 const mediaAlt = item.media && item.media[0] ? item.media[0].alt : 'No image available';
 
+                // Check if there are any bids and get the highest bid
+                const bids = item.bids && item.bids.length > 0 ? item.bids : [];
+                const winningBid = bids.length > 0 ? Math.max(...bids.map(bid => bid.amount)) : null; // Get the highest bid
+                const winningBidText = winningBid !== null ? `$${winningBid.toFixed(2)}` : 'No bids';
+
                 return `
                     <div class="listing-item" data-listing-id="${item.id}">
                         <a href="#" class="listing-link">
@@ -51,11 +56,12 @@ async function loadListings() {
                             <p class="listing-tags">Tags: ${item.tags.length > 0 ? item.tags.join(', ') : 'No tags'}</p>
                             <p class="listing-end-date">Ends At: ${new Date(item.endsAt).toLocaleString()}</p>
                             <p class="listing-bids">Bids: ${item._count.bids}</p>
+                            <p class="listing-winning-bid"><strong>Current Winning Bid: </strong>${winningBidText}</p> <!-- Added winning bid display -->
                             <button class="view-listing-button" data-listing-id="${item.id}">View Listing</button>
                         </div>
                     </div>
                 `;
-            }).join('');
+            }).join(''); // Generate all listing HTML
 
             listingsContainer.innerHTML = listingsHtml;
 
