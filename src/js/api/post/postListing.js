@@ -64,8 +64,10 @@ document.getElementById("listingForm").addEventListener("submit", async function
         if (response.ok) {
             const result = await response.json();
             alert("Listing created successfully!");
-            // Optionally reset the form
-            document.getElementById("listingForm").reset();
+
+            // Redirect to the listing's page using the returned ID
+            const listingId = result.id;  // Assuming the API returns an 'id' field
+            window.location.href = `/index.html`;
         } else {
             // If response is not ok, log the error and show it
             const error = await response.json();
@@ -99,3 +101,4 @@ document.getElementById("mediaContainer").addEventListener("click", function(eve
         inputContainer.remove();
     }
 });
+

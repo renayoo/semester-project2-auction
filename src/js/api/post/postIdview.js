@@ -116,6 +116,7 @@ async function showListing() {
     document.getElementById('seller-name').addEventListener('click', () => {
         window.location.href = `/profile/?name=${listing.seller.name}`; // Redirect to seller's profile
     });
+    
 
     // Handle place bid button click
     document.getElementById('submit-bid').addEventListener('click', async () => {
@@ -128,9 +129,15 @@ async function showListing() {
             alert('Please enter a valid bid amount.');
         }
     });
+
+        // Event listener back to feed
+    document.getElementById("backToFeedBtn").addEventListener("click", function() {
+        window.location.href = "/";
+    }); 
 }
 
 // Initialize listing details on page load
 document.addEventListener("DOMContentLoaded", function () {
     showListing(); 
 });
+
