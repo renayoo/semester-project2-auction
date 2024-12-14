@@ -65,7 +65,7 @@ async function showListing() {
         return;
     }
 
-    // Access the seller's name (assuming the seller is an object with a name property)
+    // Access the seller's name
     const sellerName = listing.seller && listing.seller.name ? listing.seller.name : 'Unknown Seller';
     const loggedInUserName = localStorage.getItem('name'); // Assuming this is saved in localStorage
 
@@ -77,7 +77,14 @@ async function showListing() {
     // Populate listing details
     listingDetailsContainer.innerHTML = `
         <h2>${listing.title}</h2>
-        ${listing.media && listing.media.length > 0 ? `<img src="${listing.media[0].url}" alt="${listing.media[0].alt}" />` : ''}
+        
+        <!-- Display multiple images -->
+        <div id="listing-images">
+            ${listing.media.map(image => `
+                <img src="${image.url}" alt="${image.alt}" class="listing-image" />
+            `).join('')}
+        </div>
+        
         <p><strong>Description:</strong> ${listing.description}</p>
         <p><strong>Created on:</strong> ${new Date(listing.created).toLocaleDateString()}</p>
         <p><strong>Tags:</strong> ${listing.tags.join(', ')}</p>
@@ -87,6 +94,19 @@ async function showListing() {
         <div id="listing-seller">
             <strong>Seller:</strong> <a href="javascript:void(0);" id="seller-name">${sellerName}</a>
         </div>
+
+        <h3>Bidding History:</h3>
+        <div id="bidding-history">
+            ${listing.bids.length > 0 ? listing.bids.map(bid => `
+                <div class="bid">
+                    <p>
+                        <strong><a href="/profile/?name=${bid.bidder.name}" id="bidder-name-${bid.id}">${bid.bidder.name}</a></strong> placed a bid of ${bid.amount} at ${new Date(bid.created).toLocaleString()}
+                    </p>
+                </div>
+            `).join('') : '<p>No bids yet</p>'}
+        </div>
+
+
         <h3>Place a Bid:</h3>
         <div id="place-bid">
             <!-- Default content will be set depending on login status -->
