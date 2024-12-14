@@ -1,4 +1,4 @@
-import { API_BASE } from "../constants"; 
+import { API_BASE } from "../constants";
 import { headers } from '../headers.js';
 
 // Function to fetch listing data by ID
@@ -69,16 +69,21 @@ async function showListing() {
     const sellerName = listing.seller && listing.seller.name ? listing.seller.name : 'Unknown Seller';
     const loggedInUserName = localStorage.getItem('name'); // Assuming this is saved in localStorage
 
+    // Calculate the current highest bid
+    const highestBid = listing.bids.length > 0 
+        ? Math.max(...listing.bids.map(bid => bid.amount)) 
+        : 0;
+
     // Populate listing details
     listingDetailsContainer.innerHTML = `
         <h2>${listing.title}</h2>
         ${listing.media && listing.media.length > 0 ? `<img src="${listing.media[0].url}" alt="${listing.media[0].alt}" />` : ''}
         <p><strong>Description:</strong> ${listing.description}</p>
         <p><strong>Created on:</strong> ${new Date(listing.created).toLocaleDateString()}</p>
-        <p><strong>Last Updated on:</strong> ${new Date(listing.updated).toLocaleDateString()}</p>
         <p><strong>Tags:</strong> ${listing.tags.join(', ')}</p>
         <p><strong>Auction ends at:</strong> ${new Date(listing.endsAt).toLocaleString()}</p>
         <p><strong>Bids:</strong> ${listing._count.bids}</p>
+        <p><strong>Current Winning Bid:</strong> ${highestBid > 0 ? highestBid : 'No bids yet'}</p>
         <div id="listing-seller">
             <strong>Seller:</strong> <a href="javascript:void(0);" id="seller-name">${sellerName}</a>
         </div>
@@ -86,6 +91,7 @@ async function showListing() {
         <div id="place-bid">
             <!-- Default content will be set depending on login status -->
         </div>
+        <p><strong>Your Credits:</strong> <span id="user-credits">Loading...</span></p>
         <div id="edit-delete-buttons">
             <!-- Buttons for edit and delete will be injected here -->
         </div>
@@ -122,16 +128,20 @@ async function showListing() {
     // Display bid section or login message based on access token presence
     const placeBidSection = document.getElementById('place-bid');
     if (accessToken) {
+        // Fetch and display user credits
+        const loggedInUserCredits = await fetchUserCredits();
+        document.getElementById('user-credits').textContent = loggedInUserCredits;
+
         // User is logged in, show the bid input and button
         placeBidSection.innerHTML = `
-            <input type="number" id="bid-amount" placeholder="Enter your bid amount">
+            <input type="number" id="bid-amount" placeholder="Enter your bid amount" value="${highestBid + 1}">
             <button id="submit-bid">Place Bid</button>
         `;
 
         // Handle place bid button click
         document.getElementById('submit-bid').addEventListener('click', async () => {
             const bidAmount = document.getElementById('bid-amount').value.trim();
-            if (bidAmount && !isNaN(bidAmount)) {
+            if (bidAmount && !isNaN(bidAmount) && parseFloat(bidAmount) > highestBid) {
                 // Prepare the bid data
                 const bidData = { amount: parseFloat(bidAmount) };
 
@@ -147,9 +157,7 @@ async function showListing() {
                         console.error('Error placing bid:', error);
                         alert('Failed to place bid: ' + error.message);
                     } else {
-                        const bidResult = await response.json();
-                        alert(`Bid placed successfully!`);
-                        // Optionally, refresh the page or update the listing info after placing the bid
+                        alert('Bid placed successfully!');
                         location.reload(); // Reload to show updated bid count, etc.
                     }
                 } catch (error) {
@@ -157,7 +165,7 @@ async function showListing() {
                     alert('There was an issue placing your bid.');
                 }
             } else {
-                alert('Please enter a valid bid amount.');
+                alert('Please enter a valid bid amount higher than the current winning bid.');
             }
         });
     } else {
@@ -165,10 +173,36 @@ async function showListing() {
         placeBidSection.innerHTML = '<p>Register or login to bid on listing</p>';
     }
 
-    // Event listener back to feed
-    document.getElementById("backToFeedBtn").addEventListener("click", function() {
-        window.location.href = "/";
-    });
+    // Add event listener for "Back to Feed" button
+    const backToFeedBtn = document.getElementById("backToFeedBtn");
+    if (backToFeedBtn) {
+        backToFeedBtn.addEventListener("click", function () {
+            window.location.href = "/index.html";
+        });
+    }
+}
+
+// Fetch user credits from their profile
+async function fetchUserCredits() {
+    const loggedInUserName = localStorage.getItem('name');
+    if (!loggedInUserName) return 0;
+
+    try {
+        const response = await fetch(`${API_BASE}/auction/profiles/${loggedInUserName}`, {
+            method: 'GET',
+            headers: headers(),
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            return data.data.credits || 0;
+        } else {
+            throw new Error('Failed to fetch user credits');
+        }
+    } catch (error) {
+        console.error('Error fetching user credits:', error);
+        return 0;
+    }
 }
 
 // Initialize listing details on page load

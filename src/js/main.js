@@ -45,8 +45,10 @@ async function loadListings() {
                 const winningBid = bids.length > 0 ? Math.max(...bids.map(bid => bid.amount)) : null; // Get the highest bid
                 const winningBidText = winningBid !== null ? `$${winningBid.toFixed(2)}` : 'No bids';
 
+                const endsAtTimestamp = new Date(item.endsAt).getTime();
+
                 return `
-                    <div class="listing-item" data-listing-id="${item.id}">
+                    <div class="listing-item" data-listing-id="${item.id}" data-ends-at="${endsAtTimestamp}">
                         <a href="#" class="listing-link">
                             <img src="${mediaUrl}" alt="${mediaAlt}" class="listing-image" />
                         </a>
@@ -54,9 +56,9 @@ async function loadListings() {
                             <h3 class="listing-title">${item.title}</h3>
                             <p class="listing-description">${item.description || 'No description available'}</p>
                             <p class="listing-tags">Tags: ${item.tags.length > 0 ? item.tags.join(', ') : 'No tags'}</p>
-                            <p class="listing-end-date">Ends At: ${new Date(item.endsAt).toLocaleString()}</p>
+                            <p class="listing-end-date"><strong>Ending in: </strong><span class="countdown-timer" data-ends-at="${endsAtTimestamp}">Loading...</span></p>
                             <p class="listing-bids">Bids: ${item._count.bids}</p>
-                            <p class="listing-winning-bid"><strong>Current Winning Bid: </strong>${winningBidText}</p> <!-- Added winning bid display -->
+                            <p class="listing-winning-bid"><strong>Current Winning Bid: </strong>${winningBidText}</p>
                             <button class="view-listing-button" data-listing-id="${item.id}">View Listing</button>
                         </div>
                     </div>
@@ -78,6 +80,9 @@ async function loadListings() {
             listingImages.forEach(image => {
                 image.addEventListener('click', handleListingClickFromImage);
             });
+
+            // Initialize countdown timers
+            initializeCountdownTimers();
         } else {
             listingsContainer.innerHTML = '<p>No listings available.</p>';
         }
@@ -146,6 +151,40 @@ function generatePaginationControls(meta) {
     }
 }
 
+// Function to initialize countdown timers
+function initializeCountdownTimers() {
+    const timers = document.querySelectorAll('.countdown-timer');
+    
+    timers.forEach(timer => {
+        const endsAt = parseInt(timer.getAttribute('data-ends-at'), 10);
+
+        function updateTimer() {
+            const now = Date.now();
+            const timeLeft = endsAt - now;
+
+            if (timeLeft <= 0) {
+                timer.textContent = "Expired";
+                timer.closest('.listing-item').classList.add('expired'); // Optional: Add a class for expired listings
+                return;
+            }
+
+            // Check if time left is over 24 hours
+            if (timeLeft > 24 * 60 * 60 * 1000) {
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                timer.textContent = `${days} day${days > 1 ? 's' : ''} left`;
+            } else {
+                const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                timer.textContent = `${hours}h ${minutes}m ${seconds}s`;
+            }
+        }
+
+        updateTimer(); // Run immediately to avoid delay
+        setInterval(updateTimer, 1000); // Update every second
+    });
+}
+
 // Function to handle listing click navigation
 function handleListingClick(event) {
     event.preventDefault();
@@ -177,3 +216,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     loadListings();
 });
+
