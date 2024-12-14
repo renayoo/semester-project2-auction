@@ -1,51 +1,74 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Noroff FED2 JS2 CA</title>
-        <link rel="stylesheet" href="/src/css/styles.css">
-        <script type="module" src="/src/js/api/auth/login.js" defer></script>
-        <script type="module" src="/src/js/api/ui/components/header.js" defer></script>
-        <script type="module" src="/src/js/api/ui/components/footer.js" defer></script>
-    </head>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="/src/css/styles.css">
+    <script type="module" src="/src/js/api/auth/login.js" defer></script>
+    <script type="module" src="/src/js/api/ui/components/header.js" defer></script>
+    <script type="module" src="/src/js/api/ui/components/footer.js" defer></script>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Header -->
     <header>
         <nav>
             <div id="header"></div>
         </nav>
     </header>
-    <body>
-        <div class="center-wrapper">
-            <div class="login-container">
-                <h1 class="login-title">Login</h1>
-                <h2 class="description">Welcome to the Auction!</h2>
 
-                <form name="login" autocomplete="off">
+    <!-- Main Content -->
+    <main class="flex items-center justify-center min-h-screen">
+        <div class="bg-white p-8 w-full max-w-sm">
+            <h1 class="text-3xl font-semibold text-center text-[#00708E] mb-4">Login</h1>
+            <h2 class="text-xl text-center text-gray-600 mb-6">Welcome to the Auction!</h2>
+
+            <form name="login" autocomplete="off">
                 <div class="mb-4">
-                    <label for="email">Email</label>
-                    <input id="email" type="email" name="email" autocomplete="email" required class="form-input"/>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input 
+                        id="email" 
+                        type="email" 
+                        name="email" 
+                        autocomplete="email" 
+                        required 
+                        class="mt-2 p-2 w-full border-none bg-transparent"
+                        placeholder="Enter your email"
+                    />
                 </div>
 
                 <div class="mb-6">
-                    <label for="password">Password</label>
-                    <input id="password" type="password" name="password" autocomplete="current-password" required class="form-input"/>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input 
+                        id="password" 
+                        type="password" 
+                        name="password" 
+                        autocomplete="current-password" 
+                        required 
+                        class="mt-2 p-2 w-full border-none bg-transparent"
+                        placeholder="Enter your password"
+                    />
                 </div>
 
                 <!-- Error and success message containers -->
-                <div id="successMessages" style="color: green;"></div>
-                <div id="errorMessages" style="color: red;"></div>
+                <div id="successMessages" class="text-green-500 mb-4"></div>
+                <div id="errorMessages" class="text-red-500 mb-4"></div>
 
-                <a href="/auth/register/index.html" class="register-link">New User? Register Here</a>
-
-                <button type="submit" class="login-button">
+                <button type="submit" class="w-full bg-[#00708E] text-white p-2 rounded-md hover:bg-[#005F6B] transition">
                     Login
                 </button>
-                </form>
-            </div>
+
+                <a href="/auth/register/index.html" class="text-[#00708E] text-sm hover:underline block mb-6 text-center">New User? Register Here</a>
+
+            </form>
         </div>
-        <!-- Footer -->
-        <footer>
-            <div id="footer"></div>
-        </footer>
-    </body>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div id="footer"></div>
+    </footer>
+
+</body>
 </html>

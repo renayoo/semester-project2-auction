@@ -1,58 +1,47 @@
-// Function to dynamically load the navbar
 function loadHeader() {
-    // Check if the user has an access token for login
     const accessToken = localStorage.getItem('accessToken');
     const name = localStorage.getItem('name');
     
-    // Start building the header HTML
     let headerHTML = `
-        <nav>
-            <ul>
-                <li><a href="/index.html">Home page</a></li>
+        <nav class="bg-[#00708E] p-4">
+            <ul class="flex justify-between items-center space-x-6 text-white">
+                <li><a href="/index.html" class="hover:text-gray-200">Home page</a></li>
     `;
 
-    // If user is logged in (accessToken), show the "My Profile", "Create a listing", and "Log out" buttons
     if (accessToken) {
-        // Profile link, name in localStorage 
         headerHTML += `
-            <li><a href="/profile/index.html?name=${name}">My Profile</a></li>
-            <li><a href="/post/create/index.html">Add a Listing</a></li>
-            <button id="logout-button">Log Out</button>
+            <li><a href="/profile/index.html?name=${name}" class="hover:text-gray-200">My Profile</a></li>
+            <li><a href="/post/create/index.html" class="hover:text-gray-200">Add a Listing</a></li>
+            <button id="logout-button" class="bg-transparent text-white border border-white px-4 py-2 rounded-lg hover:bg-white hover:text-[#00708E] transition">Log Out</button>
         `;
     } else {
-        // If user is not logged in (no accessToken), show the "Login" and "Register" buttons
         headerHTML += `
-            <li><a href="/auth/login/index.html">Log in</a></li>
-            <li><a href="/auth/register/index.html">Register</a></li>
+            <li><a href="/auth/login/index.html" class="hover:text-gray-200">Log in</a></li>
+            <li><a href="/auth/register/index.html" class="hover:text-gray-200">Register</a></li>
         `;
     }
 
-    // Close the <ul> and <nav>
     headerHTML += `
             </ul>
         </nav>
     `;
 
-    
     const headerDiv = document.getElementById('header');
     if (headerDiv) {
         headerDiv.innerHTML = headerHTML;
     }
 
-    // If the user is logged in (accessToken exists), logout Btn
+    // Logout functionality
     if (accessToken) {
         const logoutButton = document.getElementById('logout-button');
         if (logoutButton) {
             logoutButton.addEventListener('click', function() {
-                // Log out the user (clear session data)
                 localStorage.removeItem('accessToken');
-                localStorage.removeItem('name');         
-                // Redirect to the home page
+                localStorage.removeItem('name');
                 window.location.href = 'index.html';
             });
         }
     }
 }
 
-// Wait until the DOM is fully loaded before injecting the header
 document.addEventListener('DOMContentLoaded', loadHeader);
