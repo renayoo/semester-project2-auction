@@ -118,9 +118,20 @@ function getCurrentPage() {
 // Function to generate pagination controls
 function generatePaginationControls(meta) {
     const { currentPage, pageCount } = meta;
-
+    const maxVisiblePages = 5; // Number of page buttons to show at a time
+    const paginationContainer = document.querySelector('.pagination');
     paginationContainer.innerHTML = '';
 
+    // Calculate the range of pages to display
+    let startPage = Math.max(currentPage - Math.floor(maxVisiblePages / 2), 1);
+    let endPage = Math.min(startPage + maxVisiblePages - 1, pageCount);
+
+    // Adjust startPage if the endPage goes beyond pageCount
+    if (endPage - startPage < maxVisiblePages - 1) {
+        startPage = Math.max(endPage - maxVisiblePages + 1, 1);
+    }
+
+    // Create "Previous" button
     if (currentPage > 1) {
         const prevButton = document.createElement('a');
         prevButton.href = `?page=${currentPage - 1}`;
@@ -129,7 +140,8 @@ function generatePaginationControls(meta) {
         paginationContainer.appendChild(prevButton);
     }
 
-    for (let page = 1; page <= pageCount; page++) {
+    // Create page buttons
+    for (let page = startPage; page <= endPage; page++) {
         const pageButton = document.createElement('a');
         pageButton.href = `?page=${page}`;
         pageButton.classList.add('pagination-button');
@@ -142,6 +154,7 @@ function generatePaginationControls(meta) {
         paginationContainer.appendChild(pageButton);
     }
 
+    // Create "Next" button
     if (currentPage < pageCount) {
         const nextButton = document.createElement('a');
         nextButton.href = `?page=${currentPage + 1}`;
@@ -150,6 +163,7 @@ function generatePaginationControls(meta) {
         paginationContainer.appendChild(nextButton);
     }
 }
+
 
 // Function to initialize countdown timers
 function initializeCountdownTimers() {
@@ -164,7 +178,7 @@ function initializeCountdownTimers() {
 
             if (timeLeft <= 0) {
                 timer.textContent = "Expired";
-                timer.closest('.listing-item').classList.add('expired'); // Optional: Add a class for expired listings
+                timer.closest('.listing-item').classList.add('expired'); 
                 return;
             }
 

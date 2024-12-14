@@ -4,39 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auction website - Home page</title>
-    <link rel="stylesheet" href="src/css/styles.css">
+    <link rel="stylesheet" href="/src/css/styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <script type="module" src="src/js/main.js" defer></script>
     <script type="module" src="src/js/api/ui/components/header.js" defer></script>
     <script type="module" src="src/js/api/ui/components/footer.js" defer></script>
 </head>
-<body>
+<body class="bg-gray-100">
     <header>
         <nav>
+            <nav class="bg-[#00708E]">
             <div id="header"></div>
         </nav>
     </header>
     <main>
-        <div class="banner-img">
-            <img src="https://cdn.pixabay.com/photo/2018/02/21/11/02/adult-3170055_1280.jpg" alt="Auction Banner" style="width: 100%; height: auto;">
-            <h2>Welcome to Auction Option!</h2>
+        <div class="relative w-full">
+            <img src="https://cdn.pixabay.com/photo/2018/02/21/11/02/adult-3170055_1280.jpg" alt="Auction Banner" class="w-full h-auto object-cover max-h-96" />
+            <h2 class="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center text-4xl text-white font-semibold bg-black bg-opacity-50">
+                Welcome to Auction Option!
+            </h2>
         </div>
-        <p>Browse listings:</p>
+
+        <p class="mt-6 mb-2 text-xl font-medium">Browse listings:</p>
+        
         <!-- Search and sorting controls -->
-        <div class="controls">
-            <input type="text" id="search" placeholder="Search listings..." />
-            <select id="sort">
+        <div class="flex space-x-4 mb-4">
+            <input type="text" id="search" placeholder="Search listings..." class="px-4 py-2 border rounded-md w-1/2" />
+            <select id="sort" class="px-4 py-2 border rounded-md">
                 <option value="created_desc" selected>Newest</option>
                 <option value="created_asc">Oldest</option>
                 <option value="endsAt_asc">Ending Soon</option>
-            </select>            
+            </select>
         </div>
+        
         <!-- Dynamic listing of the items -->
-        <div id="listings"></div>
-        <div id="pagination" class="pagination"></div>
+        <div id="listings" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-6 py-4"></div>
+        <div id="pagination" class="pagination mt-6 flex justify-center space-x-4"></div>
     </main>
     <footer>
         <div id="footer"></div>
     </footer>
-    <script type="module" src="src/js/listings.js"></script>
 </body>
 </html>
