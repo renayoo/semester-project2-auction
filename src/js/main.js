@@ -31,8 +31,6 @@ async function loadListings() {
         const data = await response.json();
         const { data: listings, meta } = data;
 
-        // Log the fetched data for debugging
-        console.log('Fetched Listings Data:', listings);
 
         if (listings && listings.length > 0) {
             // Generate the HTML for the listings
