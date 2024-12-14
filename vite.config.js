@@ -1,6 +1,6 @@
-import { dirname, resolve } from 'path';
 import { defineConfig } from 'vite';
 import tailwindcss from 'tailwindcss';
+import { resolve } from 'path';  // Import resolve from 'path'
 
 export default defineConfig({
     appType: 'mpa',
@@ -16,10 +16,10 @@ export default defineConfig({
             login: resolve(__dirname, './auth/login/index.html'),
             register: resolve(__dirname, './auth/register/index.html'),
             listing: resolve(__dirname, './listing/index.html'),
-            listingCreate: resolve(__dirname, './listing/create/index.html'),
-            listingEdit: resolve(__dirname, './listing/update/index.html'),
+            listingCreate: resolve(__dirname, './post/create/index.html'),
+            listingEdit: resolve(__dirname, './post/edit/edit.html'),
             profile: resolve(__dirname, './profile/index.html'),
-            profileEdit: resolve(__dirname, './profile/update/index.html'),
+            profileEdit: resolve(__dirname, './profile/edit.html'),
         },
         },
     },
