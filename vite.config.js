@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import tailwindcss from 'tailwindcss';
-import { resolve } from 'path';  // Import resolve from 'path'
+import { resolve } from 'path'; 
 
 export default defineConfig({
     appType: 'mpa',
