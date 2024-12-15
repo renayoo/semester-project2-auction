@@ -76,46 +76,65 @@ async function showListing() {
 
     // Populate listing details
     listingDetailsContainer.innerHTML = `
-        <h2>${listing.title}</h2>
-        
-        <!-- Display multiple images -->
-        <div id="listing-images">
-            ${listing.media.map(image => `
-                <img src="${image.url}" alt="${image.alt}" class="listing-image" />
-            `).join('')}
-        </div>
-        
-        <p><strong>Description:</strong> ${listing.description}</p>
-        <p><strong>Created on:</strong> ${new Date(listing.created).toLocaleDateString()}</p>
-        <p><strong>Tags:</strong> ${listing.tags.join(', ')}</p>
-        <p><strong>Auction ends at:</strong> ${new Date(listing.endsAt).toLocaleString()}</p>
-        <p><strong>Bids:</strong> ${listing._count.bids}</p>
-        <p><strong>Current Winning Bid:</strong> ${highestBid > 0 ? highestBid : 'No bids yet'}</p>
-        <div id="listing-seller">
-            <strong>Seller:</strong> <a href="javascript:void(0);" id="seller-name">${sellerName}</a>
-        </div>
+    <h2 id="listing-title" class="text-5xl font-bold text-center text-gray-800">${listing.title}</h2>
 
-        <h3>Bidding History:</h3>
-        <div id="bidding-history">
-            ${listing.bids.length > 0 ? listing.bids.map(bid => `
-                <div class="bid">
-                    <p>
-                        <strong><a href="/profile/?name=${bid.bidder.name}" id="bidder-name-${bid.id}">${bid.bidder.name}</a></strong> placed a bid of ${bid.amount} at ${new Date(bid.created).toLocaleString()}
-                    </p>
-                </div>
-            `).join('') : '<p>No bids yet</p>'}
-        </div>
+    <!-- Display main image (smaller) -->
+    <div id="listing-main-image" class="w-full max-w-md mx-auto">
+        <img src="${listing.media[0]?.url}" alt="Main listing image" class="w-full h-auto max-h-72 object-cover rounded-lg shadow-lg">
+    </div>
 
+    <!-- Image carousel for additional images (larger) -->
+    <div id="listing-images" class="flex overflow-x-auto space-x-4 mt-4">
+        ${listing.media.slice(1).map(image => `
+            <img src="${image.url}" alt="${image.alt}" class="w-56 h-56 object-cover rounded-md cursor-pointer shadow-md transition-transform transform hover:scale-105">
+        `).join('')}
+    </div>
 
-        <h3>Place a Bid:</h3>
-        <div id="place-bid">
-            <!-- Default content will be set depending on login status -->
-        </div>
-        <p><strong>Your Credits:</strong> <span id="user-credits">Loading...</span></p>
-        <div id="edit-delete-buttons">
-            <!-- Buttons for edit and delete will be injected here -->
-        </div>
-    `;
+    <h2 class="text-3xl font-semibold text-center text-gray-600 mb-6">${listing.description}</h2>
+    <p><strong>Created on:</strong> ${new Date(listing.created).toLocaleDateString()}</p>
+    <p><strong>Tags:</strong> ${listing.tags.join(', ')}</p>
+    <p><strong>Auction ends at:</strong> ${new Date(listing.endsAt).toLocaleString()}</p>
+    <p><strong>Bids:</strong> ${listing._count.bids}</p>
+    <p><strong>Current Winning Bid:</strong> ${highestBid > 0 ? highestBid : 'No bids yet'}</p>
+    
+    <div id="listing-seller" class="mt-4">
+        <strong>Seller:</strong> <a href="javascript:void(0);" id="seller-name" class="text-teal-600 hover:text-teal-700">${sellerName}</a>
+    </div>
+
+    <h3 class="mt-6 text-xl font-semibold text-gray-800">Place a Bid:</h3>
+    <div id="place-bid" class="flex items-center space-x-4 mt-4">
+        <!-- Default content will be set depending on login status -->
+    </div>
+
+    <!-- Your Credits Section directly under the "Place a Bid" input -->
+    <p class="mt-4"><strong>Your Credits:</strong> <span id="user-credits">Loading...</span></p>
+
+    <!-- Bidding History Section moved below -->
+    <h3 class="mt-6 text-xl font-semibold text-gray-800">Bidding History:</h3>
+    <div id="bidding-history" class="mt-4">
+        ${listing.bids.length > 0 ? listing.bids.map(bid => `
+            <div class="space-y-2">
+                <p class="font-semibold">
+                    <a href="/profile/?name=${bid.bidder.name}" class="text-teal-600 hover:text-teal-700">
+                        ${bid.bidder.name}
+                    </a> placed a bid of ${bid.amount} credits at ${new Date(bid.created).toLocaleString()}
+                </p>
+            </div>
+        `).join('') : '<p>No bids yet</p>'}
+    </div>
+
+    <div id="edit-delete-buttons" class="space-x-4 mt-6">
+        <!-- Buttons for edit and delete will be injected here -->
+    </div>
+
+    <div id="back-to-feed-container" class="mt-6 flex">
+        <!-- Back to Feed button -->
+        <button id="backToFeedBtn" class="bg-[#00708E] text-white px-6 py-2 rounded-md hover:bg-[#005F6B]">
+            Back to Feed
+        </button>
+    </div>
+`;
+
 
     // Show edit and delete buttons if the logged-in user is the seller
     if (loggedInUserName === sellerName) {
@@ -124,6 +143,7 @@ async function showListing() {
         const editButton = document.createElement('button');
         editButton.textContent = 'Edit Listing';
         editButton.id = 'editListing';
+        editButton.classList.add('bg-green-600', 'text-white', 'p-2', 'rounded-md', 'hover:bg-teal-700');
         editButton.addEventListener('click', () => {
             window.location.href = `/post/edit/edit.html?id=${listingId}`;
         });
@@ -131,6 +151,7 @@ async function showListing() {
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete Listing';
         deleteButton.id = 'deleteListing';
+        deleteButton.classList.add('bg-red-600', 'text-white', 'p-2', 'rounded-md', 'hover:bg-red-700');
         deleteButton.addEventListener('click', () => deleteListing(listingId));
 
         buttonsContainer.appendChild(editButton);
@@ -154,8 +175,8 @@ async function showListing() {
 
         // User is logged in, show the bid input and button
         placeBidSection.innerHTML = `
-            <input type="number" id="bid-amount" placeholder="Enter your bid amount" value="${highestBid + 1}">
-            <button id="submit-bid">Place Bid</button>
+            <input type="number" id="bid-amount" placeholder="Enter your bid amount" value="${highestBid + 1}" class="p-2 border border-gray-300 rounded-md w-full" />
+            <button id="submit-bid" class="bg-teal-600 text-white p-2 rounded-md hover:bg-teal-700">Place Bid</button>
         `;
 
         // Handle place bid button click
