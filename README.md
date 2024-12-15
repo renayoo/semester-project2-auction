@@ -39,6 +39,7 @@ The client has specified the following requirements in the form of User Stories:
  - Tailwind
  - PostCSS
  - Vite
+ - Prettier
 
 ## Figma style guide
 - [Figma](https://www.figma.com/design/JRSTsx1mrKRSLJVItHMgcj/Semester-Project-2---DEC-2024?node-id=0-1&t=fM9cW1LdoSEz2eU3-0)
