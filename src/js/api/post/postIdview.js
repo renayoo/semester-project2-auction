@@ -17,7 +17,7 @@ async function fetchListingById(listingId) {
         return responseData.data;
     } catch (error) {
         console.error('Error fetching listing:', error);
-        return null; 
+        return null;
     }
 }
 
@@ -29,7 +29,7 @@ async function deleteListing(listingId) {
     try {
         const response = await fetch(`${API_BASE}/auction/listings/${listingId}`, {
             method: 'DELETE',
-            headers: headers(), 
+            headers: headers(),
         });
 
         if (!response.ok) {
@@ -51,7 +51,7 @@ async function deleteListing(listingId) {
 async function showListing() {
     const listingDetailsContainer = document.querySelector('#post-listing-id');
     const urlParams = new URLSearchParams(window.location.search);
-    const listingId = urlParams.get('id'); 
+    const listingId = urlParams.get('id');
 
     if (!listingId) {
         listingDetailsContainer.innerHTML = '<h2>No listing ID specified.</h2>';
@@ -67,11 +67,11 @@ async function showListing() {
 
     // Access the seller's name
     const sellerName = listing.seller && listing.seller.name ? listing.seller.name : 'Unknown Seller';
-    const loggedInUserName = localStorage.getItem('name'); 
+    const loggedInUserName = localStorage.getItem('name');
 
     // Calculate the current highest bid
-    const highestBid = listing.bids.length > 0 
-        ? Math.max(...listing.bids.map(bid => bid.amount)) 
+    const highestBid = listing.bids.length > 0
+        ? Math.max(...listing.bids.map(bid => bid.amount))
         : 0;
 
     // Populate listing details
@@ -85,8 +85,8 @@ async function showListing() {
 
     <!-- Image carousel for additional images (larger) -->
     <div id="listing-images" class="flex overflow-x-auto space-x-4 mt-4">
-        ${listing.media.slice(1).map(image => `
-            <img src="${image.url}" alt="${image.alt}" class="w-56 h-56 object-cover rounded-md cursor-pointer shadow-md transition-transform transform hover:scale-105">
+        ${listing.media.slice(1).map((image, index) => `
+            <img src="${image.url}" alt="${image.alt}" class="w-56 h-56 object-cover rounded-md cursor-pointer shadow-md transition-transform transform hover:scale-105" data-index="${index}" />
         `).join('')}
     </div>
 
@@ -189,7 +189,7 @@ async function showListing() {
                 try {
                     const response = await fetch(`${API_BASE}/auction/listings/${listingId}/bids`, {
                         method: 'POST',
-                        headers: headers(true), // Send the access token with the request
+                        headers: headers(true), 
                         body: JSON.stringify(bidData),
                     });
 
@@ -199,7 +199,7 @@ async function showListing() {
                         alert('Failed to place bid: ' + error.message);
                     } else {
                         alert('Bid placed successfully!');
-                        location.reload(); // Reload to show updated bid count, etc.
+                        location.reload(); 
                     }
                 } catch (error) {
                     console.error('Error placing bid:', error);
@@ -221,6 +221,28 @@ async function showListing() {
             window.location.href = "/index.html";
         });
     }
+
+    // Add event listener for image clicks in the carousel
+    document.querySelectorAll('#listing-images img').forEach((img, index) => {
+        img.addEventListener('click', () => {
+            // Get the current main image and clicked image
+            const mainImage = document.getElementById('listing-main-image').querySelector('img');
+            const carouselImages = document.querySelectorAll('#listing-images img');
+
+            // Switch the main image with the clicked image in the carousel
+            const clickedImage = carouselImages[index];
+            const clickedImageUrl = clickedImage.src;
+            const clickedImageAlt = clickedImage.alt;
+
+            // Update the clicked image's src to be the main image's src
+            clickedImage.src = mainImage.src;
+            clickedImage.alt = mainImage.alt;
+
+            // Update the main image's src to be the clicked image's src
+            mainImage.src = clickedImageUrl;
+            mainImage.alt = clickedImageAlt;
+        });
+    });
 }
 
 // Fetch user credits from their profile
@@ -248,5 +270,5 @@ async function fetchUserCredits() {
 
 // Initialize listing details on page load
 document.addEventListener("DOMContentLoaded", function () {
-    showListing(); 
+    showListing();
 });
