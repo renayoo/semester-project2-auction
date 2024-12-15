@@ -17,12 +17,12 @@
             <div id="header" class="header"></div>
         </nav>
     </header>
-    <div class="flex justify-center items-center min-h-screen flex-col">
-        <div class="login-container bg-white p-12 rounded-lg shadow-lg w-[500px]">
+    <div class="flex justify-center items-center min-h-screen">
+        <div class="login-container p-12 rounded-lg w-[500px]">
             <h1 class="login-title text-4xl font-bold text-center text-gray-800 mb-8 pt-4">Welcome to the Auction!</h1>
-            <br> <!-- Line break added here -->
+            <br>
             <h2 class="login-subtitle text-3xl font-semibold text-center text-gray-600 mb-8">Login</h2>
-
+    
             <form name="login" autocomplete="off" class="login-form space-y-6">
                 <div class="input-group">
                     <label for="email" class="input-label text-lg text-gray-700">Email</label>
@@ -36,7 +36,7 @@
                         placeholder="E-mail (stud.noroff.no)"
                     />
                 </div>
-
+    
                 <div class="input-group">
                     <label for="password" class="input-label text-lg text-gray-700">Password</label>
                     <input 
@@ -49,7 +49,7 @@
                         placeholder="Password"
                     />
                 </div>
-
+    
                 <!-- Error and success message containers -->
                 <div id="successMessages" class="success-messages text-green-500"></div>
                 <div id="errorMessages" class="error-messages text-red-500"></div>
@@ -64,11 +64,9 @@
                 </a>
             </form>
         </div>
-    </div>
+    </div>    
     <!-- Footer -->
-    <footer class="bg-white shadow-md mt-auto py-4">
         <div id="footer" class="footer"></div>
     </footer>
-
 </body>
 </html>

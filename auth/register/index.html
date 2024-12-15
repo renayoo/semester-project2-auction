@@ -23,11 +23,11 @@
             </h2>
     </header>
     <div class="flex justify-center items-center min-h-screen flex-col">
-        <div class="register-container bg-white p-12 rounded-lg shadow-lg w-[500px]"> 
-            <h1 class="text-3xl font-bold text-center text-gray-800 mb-6 pt-4">Welcome to the Auction!</h1>
-            <h2 class="text-xl font-semibold text-center text-gray-600 mb-6">Register</h2>
-
-            <form id="registerForm" class="space-y-4">
+        <div class="register-container p-16 rounded-lg w-[600px]">
+            <h1 class="text-4xl font-bold text-center text-gray-800 mb-8 pt-4">Welcome to the Auction!</h1>
+            <h2 class="text-2xl font-semibold text-center text-gray-600 mb-8">Register</h2>
+    
+            <form id="registerForm" class="space-y-6">
                 <div class="input-group">
                     <label for="name" class="input-label text-lg text-gray-700">Name</label>
                     <input 
@@ -35,11 +35,11 @@
                         id="name" 
                         name="name" 
                         required 
-                        class="input-field w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        class="input-field w-full px-6 py-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Username"
                     />
                 </div>
-
+    
                 <div class="input-group">
                     <label for="email" class="input-label text-lg text-gray-700">Email</label>
                     <input 
@@ -47,11 +47,11 @@
                         id="email" 
                         name="email" 
                         required 
-                        class="input-field w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        class="input-field w-full px-6 py-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="E-mail (stud.noroff.no)"
                     />
                 </div>
-
+    
                 <div class="input-group">
                     <label for="password" class="input-label text-lg text-gray-700">Password</label>
                     <input 
@@ -60,42 +60,38 @@
                         name="password" 
                         required 
                         minlength="8"
-                        class="input-field w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        class="input-field w-full px-6 py-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Password"
                     />
                 </div>
-
+    
                 <div class="input-group">
                     <label for="bio" class="input-label text-lg text-gray-700">Bio (Optional)</label>
                     <textarea 
                         id="bio" 
                         name="bio" 
                         maxlength="160" 
-                        class="input-field w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        class="input-field w-full px-6 py-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Tell us about yourself"
                     ></textarea>
-                </div>
-
+                </div>  
+    
                 <!-- Error and success message containers -->
                 <div id="successMessages" class="text-green-500"></div>
                 <div id="errorMessages" class="text-red-500"></div>
-
                 <br>
-                <button type="submit" class="w-full py-2 bg-[#00708E] text-white font-semibold rounded-md hover:bg-white hover:text-[#00708E] transition duration-200">
+                <button type="submit" class="w-full py-4 bg-[#00708E] text-white text-lg font-semibold rounded-md hover:bg-white hover:text-[#00708E] transition duration-200">
                     Register
                 </button>
-
                 <br>
-                <br>
-                <a href="/auth/login/index.html" class="text-blue-600 hover:underline text-center block mt-4">
+                <a href="/auth/login/index.html" class="text-blue-600 hover:underline text-center block mt-6 text-lg">
                     Already a user? Login Here
                 </a>
             </form>
         </div>
     </div>
-
+    
     <!-- Footer -->
-    <footer class="bg-white shadow-md mt-auto py-4">
         <div id="footer" class="footer"></div>
     </footer>
 </body>

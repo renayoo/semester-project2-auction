@@ -19,11 +19,11 @@
     </header>
 
     <div class="flex justify-center items-center min-h-screen flex-col">
-        <div class="bg-white p-8 rounded-lg shadow-lg w-96">
-            <h1 class="text-3xl font-bold text-center text-gray-800 mb-6 pt-4">Create New Listing</h1>
+        <div class="bg-transparent p-16 rounded-lg w-[600px]">
+            <h1 class="text-4xl font-bold text-center text-gray-800 mb-8 pt-4">Create New Listing</h1>
 
             <!-- Form to Create Listing -->
-            <form id="listingForm" class="space-y-4">
+            <form id="listingForm" class="space-y-6">
                 <div class="input-group">
                     <label for="title" class="text-lg text-gray-700">Title</label>
                     <input 
@@ -31,7 +31,7 @@
                         id="title" 
                         name="title" 
                         required 
-                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        class="w-full px-6 py-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Title of your listing"
                     >
                 </div>
@@ -41,7 +41,7 @@
                     <textarea 
                         id="description" 
                         name="description" 
-                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        class="w-full px-6 py-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Description of your listing"
                     ></textarea>
                 </div>
@@ -52,7 +52,7 @@
                         type="text" 
                         id="tags" 
                         name="tags" 
-                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        class="w-full px-6 py-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                         placeholder="Add tags for your listing"
                     >
                 </div>
@@ -64,13 +64,13 @@
                         <div class="media-input flex items-center space-x-2">
                             <input 
                                 type="url" 
-                                class="mediaUrl w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                                class="mediaUrl w-full px-6 py-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
                                 name="mediaUrl[]" 
                                 placeholder="Image URL"
                             >
                             <input 
                                 type="text" 
-                                class="mediaAlt w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                                class="mediaAlt w-full px-6 py-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
                                 name="mediaAlt[]" 
                                 placeholder="Alt text for image"
                             >
@@ -84,7 +84,7 @@
                     <button 
                         type="button" 
                         id="addImageBtn" 
-                        class="mt-4 px-4 py-2 bg-[#00708E] text-white font-semibold rounded-md hover:bg-white hover:text-[#00708E] transition duration-200">
+                        class="mt-4 px-6 py-4 bg-[#00708E] text-white font-semibold rounded-md hover:bg-white hover:text-[#00708E] transition duration-200">
                         Add More Images
                     </button>
                 </div>
@@ -96,13 +96,13 @@
                         id="endDate" 
                         name="endsAt" 
                         required 
-                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        class="w-full px-6 py-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                 </div>
 
                 <button 
                     type="submit" 
-                    class="w-full py-2 bg-[#00708E] text-white font-semibold rounded-md hover:bg-white hover:text-[#00708E] transition duration-200">
+                    class="w-full py-4 bg-[#00708E] text-white font-semibold rounded-md hover:bg-white hover:text-[#00708E] transition duration-200">
                     Create Listing
                 </button>
             </form>
@@ -110,7 +110,6 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-white shadow-md mt-auto py-4">
         <div id="footer" class="footer"></div>
     </footer>
 </body>

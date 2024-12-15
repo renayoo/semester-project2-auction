@@ -2,9 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Tailwind Custom Styles for Footer */
-footer {
-    @apply bg-[#00708E] text-white text-center py-4 w-full mt-auto;
-}
-
-

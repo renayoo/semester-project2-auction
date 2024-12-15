@@ -104,7 +104,7 @@ Thank you for considering contributing to this project! Here are the steps to ge
 
 ## Acknowledgments
 
-This submission is a part of the semester project 2 for the second year studying at Noroff. The figma style guide and the actual website might not look alike as the time for me to finish it limited. The Edit btn for updating listings doesn't work properly as well (authentication issues that hasn't been resolved on my side).
+This submission is a part of the semester project 2 for the second year studying at Noroff. The figma style guide and the actual website might not look alike as the time for me to finish it limited. The Edit btn for updating listings doesn't work properly as well (authentication issues that hasn't been resolved on my side). The dropdown sorting btn doesn't work as well.
 I apologize for any confusion this may cause and assure you that I will be continually working to improve the user experience and align it with the original design vision.  
 
 Thank you for your understanding and support!

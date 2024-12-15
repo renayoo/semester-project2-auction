@@ -1,5 +1,5 @@
-import { headers } from './api/headers'; 
-import { API_BASE } from './api/constants'; 
+import { headers } from './api/headers';
+import { API_BASE } from './api/constants';
 
 const listingsContainer = document.getElementById('listings');
 const paginationContainer = document.querySelector('.pagination');
@@ -12,10 +12,10 @@ async function loadListings() {
     // Get the search input value from the URL or the input field
     const searchTerm = getSearchTermFromURL() || searchInput.value.trim();
 
-    // Construct API endpoint with search parameters and pagination
-    let endpoint = `${API_BASE}/auction/listings?page=${currentPage}&limit=9&sort=created&order=desc&_bids=true`; // Default to newest listings, including bids
+    // Construct API endpoint with search parameters and pagination (limit is 8 listings per page)
+    let endpoint = `${API_BASE}/auction/listings?page=${currentPage}&limit=8&sort=created&order=desc&_bids=true`; // Default to newest listings
     if (searchTerm) {
-        endpoint = `${API_BASE}/auction/listings/search?q=${encodeURIComponent(searchTerm)}&page=${currentPage}&limit=9&sort=created&order=desc&_bids=true`; // Include search term and bids
+        endpoint = `${API_BASE}/auction/listings/search?q=${encodeURIComponent(searchTerm)}&page=${currentPage}&limit=8&sort=created&order=desc&_bids=true`; // Include search term
     }
 
     try {
@@ -31,7 +31,6 @@ async function loadListings() {
         const data = await response.json();
         const { data: listings, meta } = data;
 
-
         if (listings && listings.length > 0) {
             // Generate the HTML for the listings
             const listingsHtml = listings.map(item => {
@@ -40,28 +39,28 @@ async function loadListings() {
 
                 // Check if there are any bids and get the highest bid
                 const bids = item.bids && item.bids.length > 0 ? item.bids : [];
-                const winningBid = bids.length > 0 ? Math.max(...bids.map(bid => bid.amount)) : null; // Get the highest bid
+                const winningBid = bids.length > 0 ? Math.max(...bids.map(bid => bid.amount)) : null;
                 const winningBidText = winningBid !== null ? `$${winningBid.toFixed(2)}` : 'No bids';
 
                 const endsAtTimestamp = new Date(item.endsAt).getTime();
 
                 return `
-                    <div class="listing-item" data-listing-id="${item.id}" data-ends-at="${endsAtTimestamp}">
-                        <a href="#" class="listing-link">
-                            <img src="${mediaUrl}" alt="${mediaAlt}" class="listing-image" />
+                    <div class="listing-item bg-white rounded-lg shadow-lg overflow-hidden flex flex-col" data-listing-id="${item.id}">
+                        <a href="/listing/index.html?id=${item.id}" class="listing-link block relative">
+                            <img src="${mediaUrl}" alt="${mediaAlt}" class="listing-image w-full h-64 object-cover" />
                         </a>
-                        <div class="listing-details">
-                            <h3 class="listing-title">${item.title}</h3>
-                            <p class="listing-description">${item.description || 'No description available'}</p>
-                            <p class="listing-tags">Tags: ${item.tags.length > 0 ? item.tags.join(', ') : 'No tags'}</p>
-                            <p class="listing-end-date"><strong>Ending in: </strong><span class="countdown-timer" data-ends-at="${endsAtTimestamp}">Loading...</span></p>
-                            <p class="listing-bids">Bids: ${item._count.bids}</p>
-                            <p class="listing-winning-bid"><strong>Current Winning Bid: </strong>${winningBidText}</p>
-                            <button class="view-listing-button" data-listing-id="${item.id}">View Listing</button>
+                        <div class="listing-details p-4 flex flex-col flex-grow">
+                            <h3 class="listing-title text-xl font-semibold text-gray-800 truncate">${item.title}</h3>
+                            <p class="listing-description text-sm text-gray-600 mt-2">${item.description || 'No description available'}</p>
+                            <p class="listing-tags text-xs text-gray-500 mt-1">Tags: ${item.tags.length > 0 ? item.tags.join(', ') : 'No tags'}</p>
+                            <p class="listing-end-date text-sm text-gray-700 mt-2"><strong>Ending in: </strong><span class="countdown-timer" data-ends-at="${endsAtTimestamp}">Loading...</span></p>
+                            <p class="listing-bids text-sm text-gray-700 mt-2">Bids: ${item._count.bids}</p>
+                            <p class="listing-winning-bid text-sm text-gray-700 mt-2"><strong>Current Winning Bid: </strong>${winningBidText}</p>
+                            <button class="view-listing-button mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200" data-listing-id="${item.id}">View Listing</button>
                         </div>
                     </div>
                 `;
-            }).join(''); // Generate all listing HTML
+            }).join('');
 
             listingsContainer.innerHTML = listingsHtml;
 
@@ -93,7 +92,7 @@ async function loadListings() {
 // Function to get the search term from the URL if present
 function getSearchTermFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('q') || ''; // Get the search term from the query string
+    return urlParams.get('q') || '';
 }
 
 // Function to handle search or input change
@@ -102,7 +101,8 @@ function handleSearch() {
     // Update the URL with the search term
     const currentUrl = new URL(window.location);
     currentUrl.searchParams.set('q', searchTerm);
-    history.pushState(null, '', currentUrl.toString()); // Update the browser URL without reloading
+    currentUrl.searchParams.set('page', 1); // Reset to page 1 when searching
+    history.pushState(null, '', currentUrl.toString());
     loadListings(); // Reload the listings with the new search term
 }
 
@@ -119,8 +119,7 @@ function generatePaginationControls(meta) {
 
     // Dynamically determine the maxVisiblePages based on screen size
     const maxVisiblePages = window.matchMedia('(max-width: 768px)').matches ? 3 : 5; // 3 buttons for phones, 5 for larger screens
-    
-    const paginationContainer = document.querySelector('.pagination');
+
     paginationContainer.innerHTML = '';
 
     // Calculate the range of pages to display
@@ -165,11 +164,10 @@ function generatePaginationControls(meta) {
     }
 }
 
-
 // Function to initialize countdown timers
 function initializeCountdownTimers() {
     const timers = document.querySelectorAll('.countdown-timer');
-    
+
     timers.forEach(timer => {
         const endsAt = parseInt(timer.getAttribute('data-ends-at'), 10);
 
@@ -179,11 +177,10 @@ function initializeCountdownTimers() {
 
             if (timeLeft <= 0) {
                 timer.textContent = "Expired";
-                timer.closest('.listing-item').classList.add('expired'); 
+                timer.closest('.listing-item').classList.add('expired');
                 return;
             }
 
-            // Check if time left is over 24 hours
             if (timeLeft > 24 * 60 * 60 * 1000) {
                 const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
                 timer.textContent = `${days} day${days > 1 ? 's' : ''} left`;
@@ -195,7 +192,7 @@ function initializeCountdownTimers() {
             }
         }
 
-        updateTimer(); // Run immediately to avoid delay
+        updateTimer(); // Run immediately
         setInterval(updateTimer, 1000); // Update every second
     });
 }
@@ -222,13 +219,11 @@ function navigateToListing(listingId) {
 // Event listener for the search input
 searchInput.addEventListener('input', handleSearch);
 
-// Load listings on page load, considering the search query from the URL
+// Load listings on page load
 document.addEventListener('DOMContentLoaded', () => {
-    // Set the search input based on the URL search query
     const searchTermFromURL = getSearchTermFromURL();
     if (searchTermFromURL) {
         searchInput.value = searchTermFromURL;
     }
     loadListings();
 });
-
