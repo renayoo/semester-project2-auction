@@ -1,5 +1,5 @@
-import { headers } from './api/headers'; // Import your headers for the API request
-import { API_BASE } from './api/constants'; // Your API base URL
+import { headers } from './api/headers'; 
+import { API_BASE } from './api/constants'; 
 
 const listingsContainer = document.getElementById('listings');
 const paginationContainer = document.querySelector('.pagination');
@@ -118,7 +118,7 @@ function generatePaginationControls(meta) {
     const { currentPage, pageCount } = meta;
 
     // Dynamically determine the maxVisiblePages based on screen size
-    const maxVisiblePages = window.matchMedia('(max-width: 768px)').matches ? 2 : 5; // 3 buttons for phones, 5 for larger screens
+    const maxVisiblePages = window.matchMedia('(max-width: 768px)').matches ? 3 : 5; // 3 buttons for phones, 5 for larger screens
     
     const paginationContainer = document.querySelector('.pagination');
     paginationContainer.innerHTML = '';

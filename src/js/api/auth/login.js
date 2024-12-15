@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
         // If already logged in, redirect to home or profile
-        window.location.href = "/";  // Or change to user's profile or dashboard
+        window.location.href = "/";
     }
 
     const form = document.getElementsByName("login")[0];
@@ -66,8 +66,8 @@ async function loginUser({ email, password }) {
 
             // Decode the JWT token
             const tokenPayload = JSON.parse(atob(accessToken.split('.')[1]));
-            const userId = tokenPayload.sub;  // Adjust based on your token structure
-            const name = tokenPayload.name;   // Assuming 'name' is part of the payload
+            const userId = tokenPayload.sub;
+            const name = tokenPayload.name;
 
             localStorage.setItem('userId', userId);
             localStorage.setItem('name', name);  // Store user name in localStorage
@@ -81,7 +81,7 @@ async function loginUser({ email, password }) {
 
         // Redirect after success with a small delay
         setTimeout(() => {
-            window.location.href = "/";  // Redirect to the homepage or feed page
+            window.location.href = "/";  // Redirect to the homepage
         }, 800);  // Delay for 0.8 seconds to show the success message
 
     } catch (error) {

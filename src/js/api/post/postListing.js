@@ -41,7 +41,7 @@ document.getElementById("listingForm").addEventListener("submit", async function
 
     // Retrieve the access token from local storage
     const accessToken = localStorage.getItem("accessToken");  // Directly get the accessToken from localStorage
-    console.log("Access Token:", accessToken);  // Log the access token
+    console.log("Access Token:", accessToken);  // Log the accessToken
 
     // If access token is missing, handle the case
     if (!accessToken) {
@@ -51,7 +51,7 @@ document.getElementById("listingForm").addEventListener("submit", async function
 
     try {
         // Use headers from the imported function
-        const requestHeaders = headers(true);  // Pass `true` to indicate a body is being sent
+        const requestHeaders = headers(true);
 
         // Make the POST request to the auction API with the full base URL
         const response = await fetch("https://v2.api.noroff.dev/auction/listings", {
@@ -66,7 +66,7 @@ document.getElementById("listingForm").addEventListener("submit", async function
             alert("Listing created successfully!");
 
             // Redirect to the listing's page using the returned ID
-            const listingId = result.id;  // Assuming the API returns an 'id' field
+            const listingId = result.id; 
             window.location.href = `/index.html`;
         } else {
             // If response is not ok, log the error and show it

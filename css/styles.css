@@ -1,3 +1,6 @@
+/* Home page styling */
+
+/* Pagination */
 .pagination-button,
 .view-listing-button {
     background-color: #00708E; 
@@ -11,26 +14,22 @@
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s; /* Add smooth transition */
 }
-
 .pagination-button {
     margin: 10px;
 }
-
-/* Hover effect */
+/* Hover effect pagination*/
 .pagination-button:hover,
 .view-listing-button:hover {
-    background-color: white; /* White background on hover */
-    color: #00708E; /* Font color to match the button on hover */
-    border: 1px solid #00708E; /* Add a border to the buttons on hover */
+    background-color: white; 
+    color: #00708E; 
+    border: 1px solid #00708E; 
 }
-
 /* Pagination active page button style */
 .pagination-button.active {
-    background-color: #005a67; /* A darker shade for the active page */
+    background-color: #005a67; 
     color: white;
     border: 1px solid #005a67;
 }
-
 /* Styling for the "Previous" and "Next" buttons */
 .pagination-button.prev,
 .pagination-button.next {

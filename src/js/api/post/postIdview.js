@@ -6,7 +6,7 @@ async function fetchListingById(listingId) {
     try {
         const response = await fetch(`${API_BASE}/auction/listings/${listingId}?_seller=true&_bids=true`, {
             method: 'GET',
-            headers: headers(), // Use the headers function for authentication
+            headers: headers(),
         });
 
         if (!response.ok) {
@@ -29,7 +29,7 @@ async function deleteListing(listingId) {
     try {
         const response = await fetch(`${API_BASE}/auction/listings/${listingId}`, {
             method: 'DELETE',
-            headers: headers(), // Use headers function for authentication
+            headers: headers(), 
         });
 
         if (!response.ok) {
@@ -51,7 +51,7 @@ async function deleteListing(listingId) {
 async function showListing() {
     const listingDetailsContainer = document.querySelector('#post-listing-id');
     const urlParams = new URLSearchParams(window.location.search);
-    const listingId = urlParams.get('id'); // Get listing ID from URL parameters
+    const listingId = urlParams.get('id'); 
 
     if (!listingId) {
         listingDetailsContainer.innerHTML = '<h2>No listing ID specified.</h2>';
@@ -67,7 +67,7 @@ async function showListing() {
 
     // Access the seller's name
     const sellerName = listing.seller && listing.seller.name ? listing.seller.name : 'Unknown Seller';
-    const loggedInUserName = localStorage.getItem('name'); // Assuming this is saved in localStorage
+    const loggedInUserName = localStorage.getItem('name'); 
 
     // Calculate the current highest bid
     const highestBid = listing.bids.length > 0 
