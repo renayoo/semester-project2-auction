@@ -116,7 +116,10 @@ function getCurrentPage() {
 // Function to generate pagination controls
 function generatePaginationControls(meta) {
     const { currentPage, pageCount } = meta;
-    const maxVisiblePages = 5; // Number of page buttons to show at a time
+
+    // Dynamically determine the maxVisiblePages based on screen size
+    const maxVisiblePages = window.matchMedia('(max-width: 768px)').matches ? 2 : 5; // 3 buttons for phones, 5 for larger screens
+    
     const paginationContainer = document.querySelector('.pagination');
     paginationContainer.innerHTML = '';
 

@@ -4,18 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/src/css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <script type="module" src="/src/js/api/auth/register.js" defer></script>
     <script type="module" src="/src/js/api/ui/components/header.js" defer></script>
     <script type="module" src="/src/js/api/ui/components/footer.js" defer></script>
     <title>Register - Auction</title>
 </head>
-<header>
-    <nav>
+<body>
+    <header>
         <div id="header"></div>
-    </nav>
-</header>
-    <body>
-        <h1>Register</h1>
+    </header>
+    
+    <!-- Main Content Container -->
+    <div class="relative w-full">
+        <img src="https://cdn.pixabay.com/photo/2016/11/22/23/40/hands-1851218_1280.jpg" alt="Auction Banner" class="w-full h-auto object-cover max-h-96" />
+        <h2 class="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-start text-4xl text-white font-semibold bg-black bg-opacity-50 p-6">
+            As a registered user<br>you can place bids<br>and add listings!
+        </h2>
+    </div>
+    
+    <!-- Content Section -->
+    <div class="content">
+        <h1 class="welcomeText">Welcome to Auction Option!</h1>
+        <br>
+        <h2 class="1000creditsText">Register and get 1000 credits to bid for! </h2>
+        <br>
         <form id="registerForm">
             <label for="name">Name (Required):</label>
             <input type="text" id="name" name="name" required>
@@ -34,9 +47,15 @@
         </form>
         <div id="successMessages" style="color: green;"></div>
         <div id="errorMessages" style="color: red;"></div>
-        <!-- Footer -->
-        <footer>
-            <div id="footer"></div>
-        </footer>
-    </body>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div id="footer"></div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', loadHeader);
+    </script>
+</body>
 </html>

@@ -5,72 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
     <link rel="stylesheet" href="/src/css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <script type="module" src="/src/js/api/auth/login.js" defer></script>
     <script type="module" src="/src/js/api/ui/components/header.js" defer></script>
     <script type="module" src="/src/js/api/ui/components/footer.js" defer></script>
 </head>
 <body class="bg-gray-100">
-
     <!-- Header -->
-    <header>
+    <header class="bg-white shadow-md">
         <nav>
-            <div id="header"></div>
+            <div id="header" class="header"></div>
         </nav>
     </header>
+    <div class="flex justify-center items-center min-h-screen flex-col">
+        <div class="login-container bg-white p-8 rounded-lg shadow-lg w-96">
+            <h1 class="login-title text-3xl font-bold text-center text-gray-800 mb-6 pt-4">Welcome to the Auction!</h1>
+            <h2 class="login-subtitle text-xl font-semibold text-center text-gray-600 mb-6">Login</h2>
 
-    <!-- Main Content -->
-    <main class="flex items-center justify-center min-h-screen">
-        <div class="bg-white p-8 w-full max-w-sm">
-            <h1 class="text-3xl font-semibold text-center text-[#00708E] mb-4">Login</h1>
-            <h2 class="text-xl text-center text-gray-600 mb-6">Welcome to the Auction!</h2>
-
-            <form name="login" autocomplete="off">
-                <div class="mb-4">
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+            <form name="login" autocomplete="off" class="login-form space-y-4">
+                <div class="input-group">
+                    <label for="email" class="input-label text-lg text-gray-700">Email</label>
                     <input 
                         id="email" 
                         type="email" 
                         name="email" 
                         autocomplete="email" 
                         required 
-                        class="mt-2 p-2 w-full border-none bg-transparent"
-                        placeholder="Enter your email"
+                        class="input-field w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="E-mail (stud.noroff.no)"
                     />
                 </div>
 
-                <div class="mb-6">
-                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                <div class="input-group">
+                    <label for="password" class="input-label text-lg text-gray-700">Password</label>
                     <input 
                         id="password" 
                         type="password" 
                         name="password" 
                         autocomplete="current-password" 
                         required 
-                        class="mt-2 p-2 w-full border-none bg-transparent"
-                        placeholder="Enter your password"
+                        class="input-field w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Password"
                     />
                 </div>
 
                 <!-- Error and success message containers -->
-                <div id="successMessages" class="text-green-500 mb-4"></div>
-                <div id="errorMessages" class="text-red-500 mb-4"></div>
-
-                <button type="submit" class="w-full bg-[#00708E] text-white p-2 rounded-md hover:bg-[#005F6B] transition">
+                <div id="successMessages" class="success-messages text-green-500"></div>
+                <div id="errorMessages" class="error-messages text-red-500"></div>
+                <br>
+                <button type="submit" class="submit-btn w-full py-2 bg-[#00708E] text-white font-semibold rounded-md hover:bg-white hover:text-[#00708E] transition duration-200">
                     Login
                 </button>
-
+                <br>
                 <!-- Styled Register link -->
-                <a href="/auth/register/index.html" class="w-full bg-[#00708E] text-white p-2 rounded-md hover:bg-[#005F6B] transition text-center block mt-4">
+                <a href="/auth/register/index.html" class="register-link text-blue-600 hover:underline text-center block mt-4">
                     New User? Register Here
                 </a>
-
             </form>
         </div>
-    </main>
-
+    </div>
     <!-- Footer -->
-    <footer>
-        <div id="footer"></div>
+    <footer class="bg-white shadow-md mt-auto py-4">
+        <div id="footer" class="footer"></div>
     </footer>
 
 </body>
