@@ -36,12 +36,9 @@ document.getElementById("listingForm").addEventListener("submit", async function
         endsAt: new Date(endsAt).toISOString(),  // Ensure endsAt is in ISO format
     };
 
-    // Log the listing data for debugging
-    console.log("Listing Data:", listingData);
 
     // Retrieve the access token from local storage
     const accessToken = localStorage.getItem("accessToken");  // Directly get the accessToken from localStorage
-    console.log("Access Token:", accessToken);  // Log the accessToken
 
     // If access token is missing, handle the case
     if (!accessToken) {

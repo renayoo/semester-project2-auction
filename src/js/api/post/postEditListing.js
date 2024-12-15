@@ -14,7 +14,6 @@ async function fetchListingById(listingId) {
         }
 
         const data = await response.json();
-        console.log('Fetched listing data:', data); // Debugging: Log fetched data
         return data.data; // Return the listing data
     } catch (error) {
         console.error('Error fetching listing:', error);
@@ -27,7 +26,7 @@ async function updateListing(listingId, updatedData) {
     try {
         const response = await fetch(`${API_BASE}/auction/listings/${listingId}`, {
             method: 'PUT',
-            headers: headers(), // Use headers function for authentication
+            headers: headers(), 
             body: JSON.stringify(updatedData)
         });
 
@@ -76,7 +75,6 @@ async function initializeEditPage() {
         return;
     }
 
-    console.log('Listing ID:', listingId); // Debugging: Log listing ID
 
     const listingData = await fetchListingById(listingId);
     

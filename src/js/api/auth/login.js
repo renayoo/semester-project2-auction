@@ -44,8 +44,6 @@ document.addEventListener("DOMContentLoaded", function () {
 // Function to handle login
 async function loginUser({ email, password }) {
     try {
-        console.log("Sending login request", { email, password });
-
         const response = await fetch("https://v2.api.noroff.dev/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
