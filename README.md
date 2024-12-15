@@ -43,7 +43,7 @@ The client has specified the following requirements in the form of User Stories:
 
 ## Figma style guide
 - [Figma](https://www.figma.com/design/JRSTsx1mrKRSLJVItHMgcj/Semester-Project-2---DEC-2024?node-id=0-1&t=fM9cW1LdoSEz2eU3-0)
-Note that the style guide for the website was made before implementing the javascript functions, so the style guide for this is not how the website actually looks. 
+
 
 ## Getting Started
 
