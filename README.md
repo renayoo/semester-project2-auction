@@ -1,6 +1,6 @@
 # Semester project 2 2024
 
-## Auction Optin.
+## Auction Option.
 Link to Auction Option: https://semester-project2-auction-renayoo.netlify.app/
 
 
