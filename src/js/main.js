@@ -118,7 +118,7 @@ function generatePaginationControls(meta) {
     const { currentPage, pageCount } = meta;
 
     // Dynamically determine the maxVisiblePages based on screen size
-    const maxVisiblePages = window.matchMedia('(max-width: 768px)').matches ? 3 : 5; // 3 buttons for phones, 5 for larger screens
+    const maxVisiblePages = window.matchMedia('(max-width: 768px)').matches ? 2 : 5; // 2 buttons for phones, 5 for larger screens
 
     paginationContainer.innerHTML = '';
 
