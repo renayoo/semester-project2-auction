@@ -9,33 +9,90 @@
     <script type="module" src="/src/js/api/ui/components/header.js" defer></script>
     <script type="module" src="/src/js/api/ui/components/footer.js" defer></script>
 </head>
-<body>
-    <header>
+<body class="bg-gray-100">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md">
         <nav>
-            <div id="header"></div>
+            <div id="header" class="header"></div>
         </nav>
     </header>
-    <div id="edit-profile-container">
-        <h2>Edit Profile</h2>
-        <form id="edit-profile-form">
-            <label for="bio">Bio:</label>
-            <textarea id="bio" name="bio" placeholder="Enter bio"></textarea><br><br>
-        
-            <label for="avatar-url">Avatar URL:</label>
-            <input type="url" id="avatar-url" name="avatar-url" placeholder="Enter avatar URL"><br>
-            <label for="avatar-alt">Avatar Alt Text:</label>
-            <input type="text" id="avatar-alt" name="avatar-alt" placeholder="Enter avatar alt text"><br><br>
-        
-            <label for="banner-url">Banner URL:</label>
-            <input type="url" id="banner-url" name="banner-url" placeholder="Enter banner URL"><br>
-            <label for="banner-alt">Banner Alt Text:</label>
-            <input type="text" id="banner-alt" name="banner-alt" placeholder="Enter banner alt text"><br><br>
-        
-            <button type="submit">Update Profile</button>
-        </form>
+
+    <div class="flex justify-center items-center min-h-screen flex-col">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-96">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-6 pt-4">Edit Profile</h2>
+
+            <!-- Form to Edit Profile -->
+            <form id="edit-profile-form" class="space-y-4">
+                
+                <div class="input-group">
+                    <label for="bio" class="text-lg text-gray-700">Bio</label>
+                    <textarea 
+                        id="bio" 
+                        name="bio" 
+                        placeholder="Enter bio"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    ></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label for="avatar-url" class="text-lg text-gray-700">Avatar URL</label>
+                    <input 
+                        type="url" 
+                        id="avatar-url" 
+                        name="avatar-url" 
+                        placeholder="Enter avatar URL"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label for="avatar-alt" class="text-lg text-gray-700">Avatar Alt Text</label>
+                    <input 
+                        type="text" 
+                        id="avatar-alt" 
+                        name="avatar-alt" 
+                        placeholder="Enter avatar alt text"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label for="banner-url" class="text-lg text-gray-700">Banner URL</label>
+                    <input 
+                        type="url" 
+                        id="banner-url" 
+                        name="banner-url" 
+                        placeholder="Enter banner URL"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label for="banner-alt" class="text-lg text-gray-700">Banner Alt Text</label>
+                    <input 
+                        type="text" 
+                        id="banner-alt" 
+                        name="banner-alt" 
+                        placeholder="Enter banner alt text"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                </div>
+
+                <!-- Action Button -->
+                <button 
+                    type="submit" 
+                    class="w-full py-2 bg-[#00708E] text-white font-semibold rounded-md hover:bg-white hover:text-[#00708E] transition duration-200">
+                    Update Profile
+                </button>
+            </form>
+        </div>
     </div>
-    <footer>
-        <div id="footer"></div>
+
+    <!-- Footer -->
+    <footer class="bg-white shadow-md mt-auto py-4">
+        <div id="footer" class="footer"></div>
     </footer>
+
 </body>
 </html>

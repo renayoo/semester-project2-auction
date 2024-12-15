@@ -3,59 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/src/css/styles.css">
+    <title>Register - Auction</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/src/css/styles.css">
     <script type="module" src="/src/js/api/auth/register.js" defer></script>
     <script type="module" src="/src/js/api/ui/components/header.js" defer></script>
     <script type="module" src="/src/js/api/ui/components/footer.js" defer></script>
-    <title>Register - Auction</title>
 </head>
-<body>
-    <header>
-        <div id="header"></div>
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <nav>
+            <div id="header" class="header"></div>
+        </nav>
+        <div class="relative w-full">
+            <img src="https://cdn.pixabay.com/photo/2016/11/22/23/40/hands-1851218_1280.jpg" alt="Auction Banner" class="w-full h-auto object-cover max-h-96" />
+            <h2 class="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-start text-4xl text-white font-semibold bg-black bg-opacity-50 p-6">
+                As a registered user<br>you can place bids<br>and add listings!
+            </h2>
     </header>
-    
-    <!-- Main Content Container -->
-    <div class="relative w-full">
-        <img src="https://cdn.pixabay.com/photo/2016/11/22/23/40/hands-1851218_1280.jpg" alt="Auction Banner" class="w-full h-auto object-cover max-h-96" />
-        <h2 class="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-start text-4xl text-white font-semibold bg-black bg-opacity-50 p-6">
-            As a registered user<br>you can place bids<br>and add listings!
-        </h2>
-    </div>
-    
-    <!-- Content Section -->
-    <div class="content">
-        <h1 class="welcomeText">Welcome to Auction Option!</h1>
-        <br>
-        <h2 class="1000creditsText">Register and get 1000 credits to bid for! </h2>
-        <br>
-        <form id="registerForm">
-            <label for="name">Name (Required):</label>
-            <input type="text" id="name" name="name" required>
-            <br>
-            <label for="email">Email (Required):</label>
-            <input type="email" id="email" name="email" required>
-            <br>
-            <label for="password">Password (Required):</label>
-            <input type="password" id="password" name="password" required minlength="8">
-            <br>
-            <label for="bio">Bio (Optional):</label>
-            <textarea id="bio" name="bio" maxlength="160"></textarea>
-            <br>
-            <br>
-            <button type="submit">Register</button>
-        </form>
-        <div id="successMessages" style="color: green;"></div>
-        <div id="errorMessages" style="color: red;"></div>
+    <div class="flex justify-center items-center min-h-screen flex-col">
+        <div class="register-container bg-white p-12 rounded-lg shadow-lg w-[500px]"> <!-- Same width as login -->
+            <h1 class="text-3xl font-bold text-center text-gray-800 mb-6 pt-4">Welcome to the Auction!</h1>
+            <h2 class="text-xl font-semibold text-center text-gray-600 mb-6">Register</h2>
+
+            <form id="registerForm" class="space-y-4">
+                <div class="input-group">
+                    <label for="name" class="input-label text-lg text-gray-700">Name</label>
+                    <input 
+                        type="text" 
+                        id="name" 
+                        name="name" 
+                        required 
+                        class="input-field w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Username"
+                    />
+                </div>
+
+                <div class="input-group">
+                    <label for="email" class="input-label text-lg text-gray-700">Email</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        required 
+                        class="input-field w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="E-mail (stud.noroff.no)"
+                    />
+                </div>
+
+                <div class="input-group">
+                    <label for="password" class="input-label text-lg text-gray-700">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        required 
+                        minlength="8"
+                        class="input-field w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Password"
+                    />
+                </div>
+
+                <div class="input-group">
+                    <label for="bio" class="input-label text-lg text-gray-700">Bio (Optional)</label>
+                    <textarea 
+                        id="bio" 
+                        name="bio" 
+                        maxlength="160" 
+                        class="input-field w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Tell us about yourself"
+                    ></textarea>
+                </div>
+
+                <!-- Error and success message containers -->
+                <div id="successMessages" class="text-green-500"></div>
+                <div id="errorMessages" class="text-red-500"></div>
+
+                <br>
+                <button type="submit" class="w-full py-2 bg-[#00708E] text-white font-semibold rounded-md hover:bg-white hover:text-[#00708E] transition duration-200">
+                    Register
+                </button>
+
+                <br>
+                <br>
+                <a href="/auth/login/index.html" class="text-blue-600 hover:underline text-center block mt-4">
+                    Already a user? Login Here
+                </a>
+            </form>
+        </div>
     </div>
 
     <!-- Footer -->
-    <footer>
-        <div id="footer"></div>
+    <footer class="bg-white shadow-md mt-auto py-4">
+        <div id="footer" class="footer"></div>
     </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', loadHeader);
-    </script>
 </body>
 </html>
